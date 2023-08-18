@@ -104,16 +104,19 @@ namespace ConsoleRPG
 			Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다.");
 			Console.WriteLine("이곳에서 던전을 들어가기 전 활동을 할 수 있습니다.");
 			Console.WriteLine();
-
+			Console.ForegroundColor = ConsoleColor.Green;
 			Console.WriteLine("1. 상태 보기");
+			Console.ResetColor();
+			Console.ForegroundColor = ConsoleColor.Yellow;
 			Console.WriteLine("2. 인벤토리");
+			Console.ResetColor();
 			Console.WriteLine();
 
 			Console.WriteLine("원하시는 행동을 입력해주세요.");
 			Console.Write(">>");
 		
 			while (true) {
-				string input = Console.ReadLine();
+				string ?input = Console.ReadLine();
 				switch (input)
 				{
 					case "1": StateOn(); break;
@@ -126,12 +129,14 @@ namespace ConsoleRPG
 		public void InventoryOn()
 		{
 			Console.Clear();
+			Console.ForegroundColor = ConsoleColor.Yellow;
 			Console.WriteLine("인벤토리");
+			Console.ResetColor();
 			Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.");
 			Console.WriteLine();
 			Console.WriteLine("[아이템 목록]");
-			Console.WriteLine($"- 1 {IronArmorDisplay}{items[0].Name}      | 방어력 +{items[0].DefensivePower} | {items[0].Information}");
-			Console.WriteLine($"- 2 {OldSwordDisplay}{items[1].Name}      | 공격력 +{items[1].AttackPower} | {items[1].Information}");
+			Console.WriteLine($"- {IronArmorDisplay}{items[0].Name}    | 방어력 +{items[0].DefensivePower} | {items[0].Information}");
+			Console.WriteLine($"- {OldSwordDisplay}{items[1].Name}    | 공격력 +{items[1].AttackPower} | {items[1].Information}");
 			Console.WriteLine();
 			Console.WriteLine("1. 장착 관리");
 			Console.WriteLine("0. 나가기");
@@ -142,7 +147,7 @@ namespace ConsoleRPG
 
 			while (true)
 			{
-				string input = Console.ReadLine();
+				string ?input = Console.ReadLine();
 				switch (input)
 				{
 					case "1": InventoryManager(); break;
@@ -155,19 +160,21 @@ namespace ConsoleRPG
 		public void InventoryManager()
 		{
 			Console.Clear();
+			Console.ForegroundColor = ConsoleColor.Yellow;
 			Console.WriteLine("인벤토리 - 장착 관리");
+			Console.ResetColor();
 			Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.");
 			Console.WriteLine();
 			Console.WriteLine("[아이템 목록]");
-			Console.WriteLine($"- 1 {IronArmorDisplay}{items[0].Name}      | 방어력 +{items[0].DefensivePower} | {items[0].Information}");
-			Console.WriteLine($"- 2 {OldSwordDisplay}{items[1].Name}      | 공격력 +{items[1].AttackPower} | {items[1].Information}");
+			Console.WriteLine($"- 1 {IronArmorDisplay}{items[0].Name}    | 방어력 +{items[0].DefensivePower} | {items[0].Information}");
+			Console.WriteLine($"- 2 {OldSwordDisplay}{items[1].Name}    | 공격력 +{items[1].AttackPower} | {items[1].Information}");
 			Console.WriteLine();
 			Console.WriteLine("0. 나가기");
 			Console.WriteLine();
 			Console.WriteLine("원하시는 행동을 입력해주세요");
 			Console.Write(">>");
 			while (true) { 
-			string input = Console.ReadLine();
+			string ?input = Console.ReadLine();
 				switch (input)
 				{
 					case "1":
@@ -219,7 +226,9 @@ namespace ConsoleRPG
 		public void StateOn()
 		{
 			Console.Clear();
+			Console.ForegroundColor = ConsoleColor.Green;
 			Console.WriteLine("상태 보기");
+			Console.ResetColor();
 			Console.WriteLine("캐릭터의 정보가 표시됩니다");
 			Console.WriteLine();
 			Console.WriteLine();
@@ -252,7 +261,7 @@ namespace ConsoleRPG
 
 			while (true)
 			{
-				string input = Console.ReadLine();
+				string ?input = Console.ReadLine();
 				switch (input)
 				{
 					case "0": GameStart(); break;
