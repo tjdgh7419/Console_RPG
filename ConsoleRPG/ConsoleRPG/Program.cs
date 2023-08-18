@@ -65,6 +65,8 @@ namespace ConsoleRPG
 	}
 	public class Start
 	{
+		string equipDisplay = "";
+		bool equipChk = false;
 		private Character player;
 		private List<Item> items;
 		public Start(Player player, List<Item>items)
@@ -98,21 +100,60 @@ namespace ConsoleRPG
 		
 		public void InventoryOn()
 		{
-			
+			Console.Clear();
 			Console.WriteLine("인벤토리");
 			Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.");
 			Console.WriteLine();
 			Console.WriteLine("[아이템 목록]");
-			Console.WriteLine($"- {items[0].Name}      | 방어력 +{items[0].DefensivePower} | {items[0].Information}");
+			Console.WriteLine($"- {equipDisplay}{items[0].Name}      | 방어력 +{items[0].DefensivePower} | {items[0].Information}");
+			Console.WriteLine();
 			Console.WriteLine("1. 장착 관리");
 			Console.WriteLine("0. 나가기");
 			Console.WriteLine();
 			Console.WriteLine("원하시는 행동을 입력해주세요");
-			Console.WriteLine(">>");
+			Console.Write(">>");
 			string input = Console.ReadLine();
 
 			switch(input)
 			{
+				case "1": InventoryManager(); break;
+				case "0": GameStart(); break;
+			}
+		}
+
+		public void InventoryManager()
+		{
+			Console.Clear();
+			Console.WriteLine("인벤토리 - 장착 관리");
+			Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.");
+			Console.WriteLine();
+			Console.WriteLine("[아이템 목록]");
+			Console.WriteLine($"- 1 {equipDisplay}{items[0].Name}      | 방어력 +{items[0].DefensivePower} | {items[0].Information}");
+			Console.WriteLine();
+			Console.WriteLine("0. 나가기");
+			Console.WriteLine();
+			Console.WriteLine("원하시는 행동을 입력해주세요");
+			Console.Write(">>");
+			string input = Console.ReadLine();
+
+			switch (input)
+			{
+				case "1":
+					{
+						if (!equipChk)
+						{
+							equipDisplay = "[E]";
+							equipChk = true;
+							InventoryManager();
+						}
+						else
+						{
+							equipDisplay = "";
+							equipChk = false;
+							InventoryManager();
+						}
+						break;
+					}
 				case "0": GameStart(); break;
 			}
 		}
