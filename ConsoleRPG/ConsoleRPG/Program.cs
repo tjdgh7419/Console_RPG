@@ -179,7 +179,10 @@ namespace ConsoleRPG
 
 	public class Start
 	{
-		
+		bool atk = false;
+		bool def = false;
+		Item AtkItem = null;
+		Item DefItem = null;
 		int AttackUP = 0;
 		int DefensiveUP = 0;
 		private Character player;
@@ -266,13 +269,17 @@ namespace ConsoleRPG
 			Console.WriteLine();
 			Console.WriteLine("원하시는 행동을 입력해주세요.");
 			Console.Write(">>");
-			string input = Console.ReadLine();
 
-			switch (input)
+			while (true)
 			{
-				case "1": StorePurchase(); break;
-				case "2": StoreSell(); break;
-				case "0": GameStart(); break;
+				string? input = Console.ReadLine();
+				switch (input)
+				{
+					case "1": StorePurchase(); break;
+					case "2": StoreSell(); break;
+					case "0": GameStart(); break;
+					default: Console.WriteLine("잘못된 입력입니다."); break;
+				}
 			}
 		}
 		public void StoreSell()
@@ -517,8 +524,8 @@ namespace ConsoleRPG
 							{
 								store_Items[0].I_Exist = true;
 								player.Gold -= store_Items[0].Price;
-								items.Add(store_Items[0]);								
-								Console.WriteLine("구매를 완료했습니다.");
+								items.Add(store_Items[0]);
+								StorePurchase();							
 							}
 							else
 							{
@@ -538,7 +545,7 @@ namespace ConsoleRPG
 								store_Items[1].I_Exist = true;
 								player.Gold -= store_Items[1].Price;
 								items.Add(store_Items[1]);
-								Console.WriteLine("구매를 완료했습니다.");
+								StorePurchase();
 							}
 							else
 							{
@@ -558,7 +565,7 @@ namespace ConsoleRPG
 								store_Items[2].I_Exist = true;
 								player.Gold -= store_Items[2].Price;
 								items.Add(store_Items[2]);
-								Console.WriteLine("구매를 완료했습니다.");
+								StorePurchase();
 							}
 							else
 							{
@@ -578,7 +585,7 @@ namespace ConsoleRPG
 								store_Items[3].I_Exist = true;
 								player.Gold -= store_Items[3].Price;
 								items.Add(store_Items[3]);
-								Console.WriteLine("구매를 완료했습니다.");
+								StorePurchase();
 							}
 							else
 							{
@@ -598,7 +605,7 @@ namespace ConsoleRPG
 								store_Items[4].I_Exist = true;
 								player.Gold -= store_Items[4].Price;
 								items.Add(store_Items[4]);
-								Console.WriteLine("구매를 완료했습니다.");
+								StorePurchase();
 							}
 							else
 							{
@@ -689,6 +696,7 @@ namespace ConsoleRPG
 			Console.WriteLine();
 			Console.WriteLine("원하시는 행동을 입력해주세요");
 			Console.Write(">>");
+			
 			while (true) { 
 			string ?input = Console.ReadLine();
 				switch (input)
@@ -697,18 +705,83 @@ namespace ConsoleRPG
 						{
 							if (Display[0])
 							{
-								if (!items[0].equipped)
+								if (!items[0].equipped && items[0].AttackPower > 0 && !atk && AtkItem != null)
 								{
+									atk = true;
+									AtkItem.Sign = "";
+									AtkItem.equipped = false;
+									items[0].Sign = "[E]";
+									items[0].equipped = true;
+									AttackUP += items[0].AttackPower;
+									player.AttackPower += items[0].AttackPower;
+									AtkItem = items[0];
+									InventoryManager();
+								}
+								else if (!items[0].equipped && items[0].AttackPower > 0 && !atk && AtkItem == null)
+								{
+									atk = true;
+									items[0].Sign = "[E]";
+									items[0].equipped = true;
+									AttackUP += items[0].AttackPower;
+									player.AttackPower += items[0].AttackPower;
+									AtkItem = items[0];
+									InventoryManager();
+								}
+								else if (!items[0].equipped && items[0].DefensivePower > 0 && !def && DefItem != null)
+								{
+									def = true;
+									DefItem.Sign = "";
+									DefItem.equipped = false;
 									items[0].Sign = "[E]";
 									items[0].equipped = true;
 									DefensiveUP += items[0].DefensivePower;
-									AttackUP += items[0].AttackPower;
 									player.DefensivePower += items[0].DefensivePower;
+									DefItem = items[0];
+									InventoryManager();
+								}
+
+								else if (!items[0].equipped && items[0].DefensivePower > 0 && !def && DefItem == null)
+								{
+									def = true;
+									items[0].Sign = "[E]";
+									items[0].equipped = true;
+									DefensiveUP += items[0].DefensivePower;
+									player.DefensivePower += items[0].DefensivePower;
+									DefItem = items[0];
+									InventoryManager();
+								}
+								else if (atk && AtkItem != null && AtkItem != items[0] && items[0].AttackPower > 0)
+								{									
+									AtkItem.Sign = "";
+									AtkItem.equipped = false;
+									items[0].Sign = "[E]";
+									items[0].equipped = true;
+									player.AttackPower -= AtkItem.AttackPower;
+									AttackUP -= AtkItem.AttackPower;
 									player.AttackPower += items[0].AttackPower;
+									AttackUP += items[0].AttackPower;
+									AtkItem = items[0];
+									InventoryManager();
+								}
+								else if (def && DefItem != null && DefItem != items[0] && items[0].DefensivePower > 0)
+								{								
+									DefItem.Sign = "";
+									DefItem.equipped = false;
+									items[0].Sign = "[E]";
+									items[0].equipped = true;
+									player.DefensivePower -= DefItem.DefensivePower;
+									DefensiveUP -= DefItem.DefensivePower;
+									player.DefensivePower += items[0].DefensivePower;
+									DefensiveUP += items[0].DefensivePower;
+									DefItem = items[0];
 									InventoryManager();
 								}
 								else
 								{
+									DefItem = null;
+									def = false;
+									AtkItem = null;
+									atk = false;
 									items[0].Sign = "";
 									items[0].equipped = false;
 									DefensiveUP -= items[0].DefensivePower;
@@ -728,18 +801,85 @@ namespace ConsoleRPG
 						{
 							if (Display[1])
 							{
-								if (!items[1].equipped)
+								if (!items[1].equipped && items[1].AttackPower > 0 && !atk && AtkItem != null)
 								{
+									atk = true;
+									AtkItem.Sign = "";
+									AtkItem.equipped = false;
+									items[1].Sign = "[E]";
+									items[1].equipped = true;
+									AttackUP += items[1].AttackPower;
+									player.AttackPower += items[1].AttackPower;
+									AtkItem = items[1];
+									InventoryManager();
+								}
+								else if (!items[1].equipped && items[1].AttackPower > 0 && !atk && AtkItem == null)
+								{
+									atk = true;
+									items[1].Sign = "[E]";
+									items[1].equipped = true;
+									AttackUP += items[1].AttackPower;
+									player.AttackPower += items[1].AttackPower;
+									AtkItem = items[1];
+									InventoryManager();
+								}
+								else if (!items[1].equipped && items[1].DefensivePower > 0 && !def && DefItem != null)
+								{
+									def = true;
+									DefItem.Sign = "";
+									DefItem.equipped = false;
 									items[1].Sign = "[E]";
 									items[1].equipped = true;
 									DefensiveUP += items[1].DefensivePower;
-									AttackUP += items[1].AttackPower;
 									player.DefensivePower += items[1].DefensivePower;
+									DefItem = items[1];
+									InventoryManager();
+								}
+
+								else if (!items[1].equipped && items[1].DefensivePower > 0 && !def && DefItem == null)
+								{
+									def = true;
+									items[1].Sign = "[E]";
+									items[1].equipped = true;
+									DefensiveUP += items[1].DefensivePower;
+									player.DefensivePower += items[1].DefensivePower;
+									DefItem = items[1];
+									InventoryManager();
+								}
+								else if (atk && AtkItem != null && AtkItem != items[1] && items[1].AttackPower > 0)
+								{
+									
+									AtkItem.Sign = "";
+									AtkItem.equipped = false;
+									items[1].Sign = "[E]";
+									items[1].equipped = true;
+									player.AttackPower -= AtkItem.AttackPower;
+									AttackUP -= AtkItem.AttackPower;
 									player.AttackPower += items[1].AttackPower;
+									AttackUP += items[1].AttackPower;
+									AtkItem = items[1];
+									InventoryManager();
+								}
+								else if (def && DefItem != null && DefItem != items[1] && items[1].DefensivePower > 0)
+								{
+									
+									DefItem.Sign = "";
+									DefItem.equipped = false;
+									items[1].Sign = "[E]";
+									items[1].equipped = true;
+									player.DefensivePower -= DefItem.DefensivePower;
+									DefensiveUP -= DefItem.DefensivePower;
+									player.DefensivePower += items[1].DefensivePower;
+									DefensiveUP += items[1].DefensivePower;
+									DefItem = items[1];
 									InventoryManager();
 								}
 								else
 								{
+									DefItem = null;
+									def = false;
+									AtkItem = null;
+									atk = false;
 									items[1].Sign = "";
 									items[1].equipped = false;
 									DefensiveUP -= items[1].DefensivePower;
@@ -759,18 +899,85 @@ namespace ConsoleRPG
 						{
 							if (Display[2])
 							{
-								if (!items[2].equipped)
+								if (!items[2].equipped && items[2].AttackPower > 0 && !atk && AtkItem != null)
 								{
+									atk = true;
+									AtkItem.Sign = "";
+									AtkItem.equipped = false;
+									items[2].Sign = "[E]";
+									items[2].equipped = true;
+									AttackUP += items[2].AttackPower;
+									player.AttackPower += items[2].AttackPower;
+									AtkItem = items[2];
+									InventoryManager();
+								}
+								else if (!items[2].equipped && items[2].AttackPower > 0 && !atk && AtkItem == null)
+								{
+									atk = true;
+									items[2].Sign = "[E]";
+									items[2].equipped = true;
+									AttackUP += items[2].AttackPower;
+									player.AttackPower += items[2].AttackPower;
+									AtkItem = items[2];
+									InventoryManager();
+								}
+								else if (!items[2].equipped && items[2].DefensivePower > 0 && !def && DefItem != null)
+								{
+									def = true;
+									DefItem.Sign = "";
+									DefItem.equipped = false;
 									items[2].Sign = "[E]";
 									items[2].equipped = true;
 									DefensiveUP += items[2].DefensivePower;
-									AttackUP += items[2].AttackPower;
 									player.DefensivePower += items[2].DefensivePower;
+									DefItem = items[2];
+									InventoryManager();
+								}
+
+								else if (!items[2].equipped && items[2].DefensivePower > 0 && !def && DefItem == null)
+								{
+									def = true;
+									items[2].Sign = "[E]";
+									items[2].equipped = true;
+									DefensiveUP += items[2].DefensivePower;
+									player.DefensivePower += items[2].DefensivePower;
+									DefItem = items[2];
+									InventoryManager();
+								}
+								else if (atk && AtkItem != null && AtkItem != items[2] && items[2].AttackPower > 0)
+								{
+									
+									AtkItem.Sign = "";
+									AtkItem.equipped = false;
+									items[2].Sign = "[E]";
+									items[2].equipped = true;
+									player.AttackPower -= AtkItem.AttackPower;
+									AttackUP -= AtkItem.AttackPower;
 									player.AttackPower += items[2].AttackPower;
+									AttackUP += items[2].AttackPower;
+									AtkItem = items[2];
+									InventoryManager();
+								}
+								else if (def && DefItem != null && DefItem != items[2] && items[2].DefensivePower > 0)
+								{
+							
+									DefItem.Sign = "";
+									DefItem.equipped = false;
+									items[2].Sign = "[E]";
+									items[2].equipped = true;
+									player.DefensivePower -= DefItem.DefensivePower;
+									DefensiveUP -= DefItem.DefensivePower;
+									player.DefensivePower += items[2].DefensivePower;
+									DefensiveUP += items[2].DefensivePower;
+									DefItem = items[2];
 									InventoryManager();
 								}
 								else
 								{
+									DefItem = null;
+									def = false;
+									AtkItem = null;
+									atk = false;
 									items[2].Sign = "";
 									items[2].equipped = false;
 									DefensiveUP -= items[2].DefensivePower;
@@ -790,18 +997,85 @@ namespace ConsoleRPG
 						{
 							if (Display[3])
 							{
-								if (!items[3].equipped)
+								if (!items[3].equipped && items[3].AttackPower > 0 && !atk && AtkItem != null)
 								{
+									atk = true;
+									AtkItem.Sign = "";
+									AtkItem.equipped = false;
+									items[3].Sign = "[E]";
+									items[3].equipped = true;
+									AttackUP += items[3].AttackPower;
+									player.AttackPower += items[3].AttackPower;
+									AtkItem = items[3];
+									InventoryManager();
+								}
+								else if (!items[3].equipped && items[3].AttackPower > 0 && !atk && AtkItem == null)
+								{
+									atk = true;
+									items[3].Sign = "[E]";
+									items[3].equipped = true;
+									AttackUP += items[3].AttackPower;
+									player.AttackPower += items[3].AttackPower;
+									AtkItem = items[3];
+									InventoryManager();
+								}
+								else if (!items[3].equipped && items[3].DefensivePower > 0 && !def && DefItem != null)
+								{
+									def = true;
+									DefItem.Sign = "";
+									DefItem.equipped = false;
 									items[3].Sign = "[E]";
 									items[3].equipped = true;
 									DefensiveUP += items[3].DefensivePower;
-									AttackUP += items[3].AttackPower;
 									player.DefensivePower += items[3].DefensivePower;
+									DefItem = items[3];
+									InventoryManager();
+								}
+
+								else if (!items[3].equipped && items[3].DefensivePower > 0 && !def && DefItem == null)
+								{
+									def = true;
+									items[3].Sign = "[E]";
+									items[3].equipped = true;
+									DefensiveUP += items[3].DefensivePower;
+									player.DefensivePower += items[3].DefensivePower;
+									DefItem = items[3];
+									InventoryManager();
+								}
+								else if (atk && AtkItem != null && AtkItem != items[3] && items[3].AttackPower > 0)
+								{
+
+									AtkItem.Sign = "";
+									AtkItem.equipped = false;
+									items[3].Sign = "[E]";
+									items[3].equipped = true;
+									player.AttackPower -= AtkItem.AttackPower;
+									AttackUP -= AtkItem.AttackPower;
 									player.AttackPower += items[3].AttackPower;
+									AttackUP += items[3].AttackPower;
+									AtkItem = items[3];
+									InventoryManager();
+								}
+								else if (def && DefItem != null && DefItem != items[3] && items[3].DefensivePower > 0)
+								{
+
+									DefItem.Sign = "";
+									DefItem.equipped = false;
+									items[3].Sign = "[E]";
+									items[3].equipped = true;
+									player.DefensivePower -= DefItem.DefensivePower;
+									DefensiveUP -= DefItem.DefensivePower;
+									player.DefensivePower += items[3].DefensivePower;
+									DefensiveUP += items[3].DefensivePower;
+									DefItem = items[3];
 									InventoryManager();
 								}
 								else
 								{
+									DefItem = null;
+									def = false;
+									AtkItem = null;
+									atk = false;
 									items[3].Sign = "";
 									items[3].equipped = false;
 									DefensiveUP -= items[3].DefensivePower;
@@ -821,24 +1095,91 @@ namespace ConsoleRPG
 						{
 							if (Display[4])
 							{
-								if (!items[4].equipped)
+								if (!items[4].equipped && items[4].AttackPower > 0 && !atk && AtkItem != null)
 								{
+									atk = true;
+									AtkItem.Sign = "";
+									AtkItem.equipped = false;
+									items[4].Sign = "[E]";
+									items[4].equipped = true;
+									AttackUP += items[4].AttackPower;
+									player.AttackPower += items[4].AttackPower;
+									AtkItem = items[4];
+									InventoryManager();
+								}
+								else if (!items[4].equipped && items[4].AttackPower > 0 && !atk && AtkItem == null)
+								{
+									atk = true;
+									items[4].Sign = "[E]";
+									items[4].equipped = true;
+									AttackUP += items[4].AttackPower;
+									player.AttackPower += items[4].AttackPower;
+									AtkItem = items[4];
+									InventoryManager();
+								}
+								else if (!items[4].equipped && items[4].DefensivePower > 0 && !def && DefItem != null)
+								{
+									def = true;
+									DefItem.Sign = "";
+									DefItem.equipped = false;
 									items[4].Sign = "[E]";
 									items[4].equipped = true;
 									DefensiveUP += items[4].DefensivePower;
-									AttackUP += items[4].AttackPower;
 									player.DefensivePower += items[4].DefensivePower;
+									DefItem = items[4];
+									InventoryManager();
+								}
+
+								else if (!items[4].equipped && items[4].DefensivePower > 0 && !def && DefItem == null)
+								{
+									def = true;
+									items[4].Sign = "[E]";
+									items[4].equipped = true;
+									DefensiveUP += items[4].DefensivePower;
+									player.DefensivePower += items[4].DefensivePower;
+									DefItem = items[4];
+									InventoryManager();
+								}
+								else if (atk && AtkItem != null && AtkItem != items[4] && items[4].AttackPower > 0)
+								{
+
+									AtkItem.Sign = "";
+									AtkItem.equipped = false;
+									items[4].Sign = "[E]";
+									items[4].equipped = true;
+									player.AttackPower -= AtkItem.AttackPower;
+									AttackUP -= AtkItem.AttackPower;
 									player.AttackPower += items[4].AttackPower;
+									AttackUP += items[4].AttackPower;
+									AtkItem = items[4];
+									InventoryManager();
+								}
+								else if (def && DefItem != null && DefItem != items[4] && items[4].DefensivePower > 0)
+								{
+
+									DefItem.Sign = "";
+									DefItem.equipped = false;
+									items[4].Sign = "[E]";
+									items[4].equipped = true;
+									player.DefensivePower -= DefItem.DefensivePower;
+									DefensiveUP -= DefItem.DefensivePower;
+									player.DefensivePower += items[4].DefensivePower;
+									DefensiveUP += items[4].DefensivePower;
+									DefItem = items[4];
 									InventoryManager();
 								}
 								else
 								{
+									DefItem = null;
+									def = false;
+									AtkItem = null;
+									atk = false;
 									items[4].Sign = "";
 									items[4].equipped = false;
 									DefensiveUP -= items[4].DefensivePower;
 									AttackUP -= items[4].AttackPower;
 									player.DefensivePower -= items[4].DefensivePower;
-									player.AttackPower -= items[0].AttackPower;
+									player.AttackPower -= items[4].AttackPower;
 									InventoryManager();
 								}
 							}
