@@ -62,14 +62,14 @@ namespace ConsoleRPG
 		public int AttackPower { get; set; }
 		public int Price { get; set; }
 		public bool I_Exist { get; set; }
-		public IronArmor(string Name, int DefensivePower, string Information, bool I_Exist) 
+		public IronArmor(string Name, int DefensivePower, string Information) 
 		{ 
 			this.Name = Name;
 			this.DefensivePower = DefensivePower;
 			this.Information = Information;
 			AttackPower = 0;
 			Price = 600;
-			this.I_Exist = I_Exist;
+			I_Exist = true;
 		}
 	}
 
@@ -103,14 +103,14 @@ namespace ConsoleRPG
 		public int Price { get; set; }
 		public bool I_Exist { get; set; }
 
-		public OldSword(string Name, int AttackPower, string Information, bool I_Exist)
+		public OldSword(string Name, int AttackPower, string Information)
 		{
 			this.Name = Name;
 			this.AttackPower = AttackPower;
 			this.Information = Information;
 			DefensivePower = 0;
 			Price = 200;
-			this.I_Exist = I_Exist;
+			I_Exist = true;
 		}
 	}
 	public class Sword : Item
@@ -168,7 +168,7 @@ namespace ConsoleRPG
 
 	public class Start
 	{
-		bool[] storeItem_chk = new bool[5];
+		
 		DisplayInfor[] Display = new DisplayInfor[5];
 		bool DisplayArr_chk = false;
 		int AttackUP = 0;
@@ -233,6 +233,7 @@ namespace ConsoleRPG
 			Console.WriteLine($"{player.Gold} G");
 			Console.WriteLine();
 			Console.WriteLine("[아이템 목록]");
+
 			for(int i = 0; i < store_Items.Count; i++)
 			{
 				if (store_Items[i].DefensivePower == 0)
@@ -277,6 +278,7 @@ namespace ConsoleRPG
 		}
 		public void StoreSell()
 		{
+			bool[] storeItem_chk = new bool[5];
 			Console.Clear();
 			Console.WriteLine("상점 - 아이템 판매");
 			Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.");
@@ -288,13 +290,14 @@ namespace ConsoleRPG
 
 			for (int i = 0; i < items.Count; i++)
 			{
+				storeItem_chk[i] = true;
 				if (items[i].DefensivePower == 0)
 				{
-					Console.WriteLine($"- {i + 1} {items[i].Name,-6}  | 공격력 +{items[i].AttackPower} | {items[i].Information,-10} ");
+					Console.WriteLine($"- {i + 1} {items[i].Name,-6}  | 공격력 +{items[i].AttackPower} | {items[i].Information,-10} | {(items[i].Price / 100) * 85} G");
 				}
 				else if (items[i].AttackPower == 0)
 				{
-					Console.WriteLine($"- {i + 1} {items[i].Name,-6}  | 방어력 +{items[i].DefensivePower} | {items[i].Information,-10}");
+					Console.WriteLine($"- {i + 1} {items[i].Name,-6}  | 방어력 +{items[i].DefensivePower} | {items[i].Information,-10} | {(items[i].Price / 100) * 85} G");
 				}
 			}
 			Console.WriteLine();
@@ -311,16 +314,17 @@ namespace ConsoleRPG
 					case "1":
 						if (storeItem_chk[0])
 						{
-							if (!store_Items[0].I_Exist && player.Gold >= store_Items[0].Price)
+							if (items[0].I_Exist)
 							{
-								store_Items[0].I_Exist = true;
-								player.Gold -= store_Items[0].Price;
-								items.Add(store_Items[0]);
-								StorePurchase();
+
+								items[0].I_Exist = false;
+								player.Gold += (items[0].Price / 100) * 85;
+								items.Remove(items[0]);
+								StoreSell();
 							}
 							else
 							{
-								Console.WriteLine("금액이 부족하거나 이미 소지 중인 아이템입니다.");
+								Console.WriteLine("존재하지않는 아이템입니다.");
 							}
 						}
 						else
@@ -331,16 +335,16 @@ namespace ConsoleRPG
 					case "2":
 						if (storeItem_chk[1])
 						{
-							if (!store_Items[1].I_Exist && player.Gold >= store_Items[1].Price)
+							if (items[1].I_Exist)
 							{
-								store_Items[1].I_Exist = true;
-								player.Gold -= store_Items[1].Price;
-								items.Add(store_Items[1]);
-								StorePurchase();
+								items[1].I_Exist = false;
+								player.Gold += (items[1].Price / 100) * 85;
+								items.Remove(items[1]);
+								StoreSell();
 							}
 							else
 							{
-								Console.WriteLine("금액이 부족하거나 이미 소지 중인 아이템입니다.");
+								Console.WriteLine("존재하지않는 아이템입니다.");
 							}
 						}
 						else
@@ -351,16 +355,16 @@ namespace ConsoleRPG
 					case "3":
 						if (storeItem_chk[2])
 						{
-							if (!store_Items[2].I_Exist && player.Gold >= store_Items[2].Price)
+							if (items[2].I_Exist)
 							{
-								store_Items[2].I_Exist = true;
-								player.Gold -= store_Items[2].Price;
-								items.Add(store_Items[2]);
-								StorePurchase();
+								items[2].I_Exist = false;
+								player.Gold += (items[2].Price / 100) * 85;
+								items.Remove(items[2]);
+								StoreSell();
 							}
 							else
 							{
-								Console.WriteLine("금액이 부족하거나 이미 소지 중인 아이템입니다.");
+								Console.WriteLine("존재하지않는 아이템입니다.");
 							}
 						}
 						else
@@ -371,16 +375,16 @@ namespace ConsoleRPG
 					case "4":
 						if (storeItem_chk[3])
 						{
-							if (!store_Items[3].I_Exist && player.Gold >= store_Items[3].Price)
+							if (items[3].I_Exist)
 							{
-								store_Items[3].I_Exist = true;
-								player.Gold -= store_Items[3].Price;
-								items.Add(store_Items[3]);
-								StorePurchase();
+								items[3].I_Exist = false;
+								player.Gold += (items[3].Price / 100) * 85;
+								items.Remove(items[3]);
+								StoreSell();
 							}
 							else
 							{
-								Console.WriteLine("금액이 부족하거나 이미 소지 중인 아이템입니다.");
+								Console.WriteLine("존재하지않는 아이템입니다.");
 							}
 						}
 						else
@@ -391,16 +395,16 @@ namespace ConsoleRPG
 					case "5":
 						if (storeItem_chk[4])
 						{
-							if (!store_Items[4].I_Exist && player.Gold >= store_Items[4].Price)
+							if (items[4].I_Exist)
 							{
-								store_Items[4].I_Exist = true;
-								player.Gold -= store_Items[4].Price;
-								items.Add(store_Items[4]);
-								StorePurchase();
+								items[4].I_Exist = false;
+								player.Gold += (items[4].Price / 100) * 85;
+								items.Remove(items[4]);
+								StoreSell();
 							}
 							else
 							{
-								Console.WriteLine("금액이 부족하거나 이미 소지 중인 아이템입니다.");
+								Console.WriteLine("존재하지않는 아이템입니다.");
 							}
 						}
 						else
@@ -416,6 +420,7 @@ namespace ConsoleRPG
 		}
 		public void StorePurchase()
 		{
+			bool[] storeItem_chk = new bool[5];
 			Console.Clear();
 			Console.WriteLine("상점 - 아이템 구매");
 			Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.");
@@ -886,16 +891,17 @@ namespace ConsoleRPG
 		{
 			List<Item> store_Items = new List<Item> 
 			{ new GoldSword("황금검", 8, "금으로 만들어진 검입니다."),
-			  new IronArmor("무쇠갑옷", 5, "무쇠로 만들어져 튼튼한 갑옷입니다.", true),
-			  new OldSword("낡은 검", 2, "쉽게 볼 수 있는 낡은 검입니다.", true),
+			  new IronArmor("무쇠갑옷", 5, "무쇠로 만들어져 튼튼한 갑옷입니다."),
+			  new OldSword("낡은 검", 2, "쉽게 볼 수 있는 낡은 검입니다."),
 			  new Sword("검", 4, "튼튼한 검입니다."),
 			  new IronRing("철반지", 3, "은으로 만들어진 반지입니다.")
 			};
 
-			List<Item>items = new List<Item> 
-			{ new IronArmor("무쇠갑옷", 5, "무쇠로 만들어져 튼튼한 갑옷입니다.", true), 
-			  new OldSword("낡은 검", 2, "쉽게 볼 수 있는 낡은 검입니다.", true),
-			  };
+			List<Item> items = new List<Item>()
+			{ }; 
+			
+			items.Add(store_Items[1]);
+			items.Add(store_Items[2]);
 
 			Player player = new State("Sungho" , "전사");
 			Start start = new Start(player, items, store_Items);
