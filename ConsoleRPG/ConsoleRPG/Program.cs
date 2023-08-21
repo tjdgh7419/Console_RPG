@@ -64,6 +64,23 @@ namespace ConsoleRPG
 			this.Name = Name;
 			this.DefensivePower = DefensivePower;
 			this.Information = Information;
+			AttackPower = 0;
+		}
+	}
+
+	public class IronRing : Item
+	{
+		public string Name { get; set; }
+		public int DefensivePower { get; set; }
+		public string Information { get; set; }
+		public int AttackPower { get; set; }
+
+		public IronRing(string Name, int DefensivePower, string Information)
+		{
+			this.Name = Name;
+			this.DefensivePower = DefensivePower;
+			this.Information = Information;
+			AttackPower = 0;
 		}
 	}
 
@@ -79,8 +96,27 @@ namespace ConsoleRPG
 			this.Name = Name;
 			this.AttackPower = AttackPower;
 			this.Information = Information;
+			DefensivePower = 0;
 		}
 	}
+	public class Sword : Item
+	{
+		public string Name { get; set; }
+		public int DefensivePower { get; set; }
+		public string Information { get; set; }
+		public int AttackPower { get; set; }
+
+		public Sword(string Name, int AttackPower, string Information)
+		{
+			this.Name = Name;
+			this.AttackPower = AttackPower;
+			this.Information = Information;
+			DefensivePower = 0;
+		}
+	}
+
+
+
 	public class Start
 	{
 		int AttackUP = 0;
@@ -135,10 +171,20 @@ namespace ConsoleRPG
 			Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.");
 			Console.WriteLine();
 			Console.WriteLine("[아이템 목록]");
-			Console.WriteLine($"- {IronArmorDisplay}{items[0].Name}    | 방어력 +{items[0].DefensivePower} | {items[0].Information}");
-			Console.WriteLine($"- {OldSwordDisplay}{items[1].Name}    | 공격력 +{items[1].AttackPower} | {items[1].Information}");
+			for(int i = 0; i < items.Count; i++)
+			{
+				if (items[i].DefensivePower == 0)
+				{
+					Console.WriteLine($"- {OldSwordDisplay}{items[i].Name, -6}  | 공격력 +{items[i].AttackPower} | {items[i].Information, 20}");
+				}
+				else
+				{
+					Console.WriteLine($"- {IronArmorDisplay}{items[i].Name, -6}  | 방어력 +{items[i].DefensivePower} | {items[i].Information, 20}");
+				}
+			}
 			Console.WriteLine();
 			Console.WriteLine("1. 장착 관리");
+			Console.WriteLine("2. 아이템 정렬");
 			Console.WriteLine("0. 나가기");
 			Console.WriteLine();
 			Console.WriteLine("원하시는 행동을 입력해주세요");
@@ -166,8 +212,17 @@ namespace ConsoleRPG
 			Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.");
 			Console.WriteLine();
 			Console.WriteLine("[아이템 목록]");
-			Console.WriteLine($"- 1 {IronArmorDisplay}{items[0].Name}    | 방어력 +{items[0].DefensivePower} | {items[0].Information}");
-			Console.WriteLine($"- 2 {OldSwordDisplay}{items[1].Name}    | 공격력 +{items[1].AttackPower} | {items[1].Information}");
+			for (int i = 0; i < items.Count; i++)
+			{
+				if (items[i].DefensivePower == 0)
+				{
+					Console.WriteLine($"- {i + 1} {OldSwordDisplay}{items[i].Name, -6}  | 공격력 +{items[i].AttackPower} | {items[i].Information}");
+				}
+				else
+				{
+					Console.WriteLine($"- {i + 1} {IronArmorDisplay}{items[i].Name, -6}  | 방어력 +{items[i].DefensivePower} | {items[i].Information}");
+				}
+			}
 			Console.WriteLine();
 			Console.WriteLine("0. 나가기");
 			Console.WriteLine();
@@ -223,6 +278,11 @@ namespace ConsoleRPG
 			}
 		}
 
+		public void InventorySort()
+		{
+
+		}
+
 		public void StateOn()
 		{
 			Console.Clear();
@@ -276,7 +336,9 @@ namespace ConsoleRPG
 		{
 			List<Item>items = new List<Item> 
 			{ new IronArmor("무쇠갑옷", 5, "무쇠로 만들어져 튼튼한 갑옷입니다."), 
-			  new OldSword("낡은 검", 2, "쉽게 볼 수 있는 낡은 검입니다.") };
+			  new OldSword("낡은 검", 2, "쉽게 볼 수 있는 낡은 검입니다."),
+			  new Sword("검", 4, "튼튼한 검입니다."),
+			  new IronRing("철반지", 3, "철로 만들어진 반지입니다.")};
 
 			Player player = new State("Sungho" , "전사");
 			Start start = new Start(player, items);
