@@ -315,7 +315,15 @@ namespace ConsoleRPG
 						{
 							if (items[0].I_Exist)
 							{
-
+								if (items[0].equipped)
+								{
+									player.AttackPower -= items[0].AttackPower;
+									player.DefensivePower -= items[0].DefensivePower;
+									AttackUP -= items[0].AttackPower;
+									DefensiveUP -= items[0].DefensivePower;
+									items[0].equipped = false;
+									items[0].Sign = "";
+								}
 								items[0].I_Exist = false;
 								player.Gold += (items[0].Price / 100) * 85;
 								items.Remove(items[0]);
@@ -336,6 +344,15 @@ namespace ConsoleRPG
 						{
 							if (items[1].I_Exist)
 							{
+								if (items[1].equipped)
+								{
+									player.AttackPower -= items[1].AttackPower;
+									player.DefensivePower -= items[1].DefensivePower;
+									AttackUP -= items[1].AttackPower;
+									DefensiveUP -= items[1].DefensivePower;
+									items[1].equipped = false;
+									items[1].Sign = "";
+								}
 								items[1].I_Exist = false;
 								player.Gold += (items[1].Price / 100) * 85;
 								items.Remove(items[1]);
@@ -356,6 +373,15 @@ namespace ConsoleRPG
 						{
 							if (items[2].I_Exist)
 							{
+								if (items[2].equipped)
+								{
+									player.AttackPower -= items[2].AttackPower;
+									player.DefensivePower -= items[2].DefensivePower;
+									AttackUP -= items[2].AttackPower;
+									DefensiveUP -= items[2].DefensivePower;
+									items[2].equipped = false;
+									items[2].Sign = "";
+								}
 								items[2].I_Exist = false;
 								player.Gold += (items[2].Price / 100) * 85;
 								items.Remove(items[2]);
@@ -376,6 +402,15 @@ namespace ConsoleRPG
 						{
 							if (items[3].I_Exist)
 							{
+								if (items[3].equipped)
+								{
+									player.AttackPower -= items[3].AttackPower;
+									player.DefensivePower -= items[3].DefensivePower;
+									AttackUP -= items[3].AttackPower;
+									DefensiveUP -= items[3].DefensivePower;
+									items[3].equipped = false;
+									items[3].Sign = "";
+								}
 								items[3].I_Exist = false;
 								player.Gold += (items[3].Price / 100) * 85;
 								items.Remove(items[3]);
@@ -396,6 +431,15 @@ namespace ConsoleRPG
 						{
 							if (items[4].I_Exist)
 							{
+								if (items[4].equipped)
+								{
+									player.AttackPower -= items[4].AttackPower;
+									player.DefensivePower -= items[4].DefensivePower;
+									AttackUP -= items[4].AttackPower;
+									DefensiveUP -= items[4].DefensivePower;
+									items[4].equipped = false;
+									items[4].Sign = "";
+								}
 								items[4].I_Exist = false;
 								player.Gold += (items[4].Price / 100) * 85;
 								items.Remove(items[4]);
@@ -587,11 +631,11 @@ namespace ConsoleRPG
 	
 				if (items[i].DefensivePower == 0)
 				{
-					Console.WriteLine($"- {items[0].Sign}{items[i].Name, -6}  | 공격력 +{items[i].AttackPower} | {items[i].Information, -10}");
+					Console.WriteLine($"- {items[i].Sign}{items[i].Name, -6}  | 공격력 +{items[i].AttackPower} | {items[i].Information, -10}");
 				}
 				else
 				{
-					Console.WriteLine($"- {items[0].Sign}{items[i].Name, -6}  | 방어력 +{items[i].DefensivePower} | {items[i].Information, -10}");
+					Console.WriteLine($"- {items[i].Sign}{items[i].Name, -6}  | 방어력 +{items[i].DefensivePower} | {items[i].Information, -10}");
 				}
 			}
 			Console.WriteLine();
