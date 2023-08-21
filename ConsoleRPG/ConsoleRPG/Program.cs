@@ -184,7 +184,8 @@ namespace ConsoleRPG
 			}
 			Console.WriteLine();
 			Console.WriteLine("1. 장착 관리");
-			Console.WriteLine("2. 아이템 정렬");
+			Console.WriteLine("2. 공격력이 높은 순으로 정렬");
+			Console.WriteLine("3. 방어력이 높은 순으로 정렬");
 			Console.WriteLine("0. 나가기");
 			Console.WriteLine();
 			Console.WriteLine("원하시는 행동을 입력해주세요");
@@ -198,6 +199,8 @@ namespace ConsoleRPG
 				{
 					case "1": InventoryManager(); break;
 					case "0": GameStart(); break;
+					case "2": AttackPowerInventorySort(); InventoryOn(); break;
+					case "3": DefensivePowerInventorySort(); InventoryOn(); break;
 					default: Console.WriteLine("잘못된 입력입니다"); break;
 				}
 			}
@@ -278,9 +281,20 @@ namespace ConsoleRPG
 			}
 		}
 
-		public void InventorySort()
+		public void AttackPowerInventorySort()
 		{
+			items.Sort((x, y) =>
+			{
+				return y.AttackPower.CompareTo(x.AttackPower);
+			});
+		}
 
+		public void DefensivePowerInventorySort()
+		{
+			items.Sort((x, y) =>
+			{
+				return y.DefensivePower.CompareTo(x.DefensivePower);
+			});
 		}
 
 		public void StateOn()
