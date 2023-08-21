@@ -261,6 +261,7 @@ namespace ConsoleRPG
 			}
 			Console.WriteLine();
 			Console.WriteLine("1. 아이템 구매");
+			Console.WriteLine("2. 아이템 판매");
 			Console.WriteLine("0. 나가기");
 			Console.WriteLine();
 			Console.WriteLine("원하시는 행동을 입력해주세요.");
@@ -270,45 +271,30 @@ namespace ConsoleRPG
 			switch (input)
 			{
 				case "1": StorePurchase(); break;
+				case "2": StoreSell(); break;
 				case "0": GameStart(); break;
 			}
 		}
-
-		public void StorePurchase()
+		public void StoreSell()
 		{
 			Console.Clear();
-			Console.WriteLine("상점 - 아이템 구매");
+			Console.WriteLine("상점 - 아이템 판매");
 			Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.");
 			Console.WriteLine();
 			Console.WriteLine("[보유 골드]");
 			Console.WriteLine($"{player.Gold} G");
 			Console.WriteLine();
 			Console.WriteLine("[아이템 목록]");
-			for (int i = 0; i < store_Items.Count; i++)
-			{
-				storeItem_chk[i] = true;
-				if (store_Items[i].DefensivePower == 0)
-				{
-					if (!store_Items[i].I_Exist)
-					{
-						Console.WriteLine($"- {i + 1} {store_Items[i].Name,-6}  | 공격력 +{store_Items[i].AttackPower} | {store_Items[i].Information,-10} | {store_Items[i].Price} G");
-					}
-					else
-					{
-						Console.WriteLine($"- {i + 1} {store_Items[i].Name,-6}  | 공격력 +{store_Items[i].AttackPower} | {store_Items[i].Information,-10} | 소지 중");
-					}
 
-				}
-				else if (store_Items[i].AttackPower == 0)
+			for (int i = 0; i < items.Count; i++)
+			{
+				if (items[i].DefensivePower == 0)
 				{
-					if (!store_Items[i].I_Exist)
-					{
-						Console.WriteLine($"- {i + 1} {store_Items[i].Name,-6}  | 방어력 +{store_Items[i].DefensivePower} | {store_Items[i].Information,-10} | {store_Items[i].Price} G");
-					}
-					else
-					{
-						Console.WriteLine($"- {i + 1} {store_Items[i].Name,-6}  | 방어력 +{store_Items[i].DefensivePower} | {store_Items[i].Information,-10} | 소지 중");
-					}
+					Console.WriteLine($"- {i + 1} {items[i].Name,-6}  | 공격력 +{items[i].AttackPower} | {items[i].Information,-10} ");
+				}
+				else if (items[i].AttackPower == 0)
+				{
+					Console.WriteLine($"- {i + 1} {items[i].Name,-6}  | 방어력 +{items[i].DefensivePower} | {items[i].Information,-10}");
 				}
 			}
 			Console.WriteLine();
@@ -423,7 +409,161 @@ namespace ConsoleRPG
 						}
 						break;
 
-					case "0": GameStart(); break;
+					case "0": Store(); break;
+					default: Console.WriteLine("잘못된 입력입니다."); break;
+				}
+			}
+		}
+		public void StorePurchase()
+		{
+			Console.Clear();
+			Console.WriteLine("상점 - 아이템 구매");
+			Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.");
+			Console.WriteLine();
+			Console.WriteLine("[보유 골드]");
+			Console.WriteLine($"{player.Gold} G");
+			Console.WriteLine();
+			Console.WriteLine("[아이템 목록]");
+			for (int i = 0; i < store_Items.Count; i++)
+			{
+				storeItem_chk[i] = true;
+				if (store_Items[i].DefensivePower == 0)
+				{
+					if (!store_Items[i].I_Exist)
+					{
+						Console.WriteLine($"- {i + 1} {store_Items[i].Name,-6}  | 공격력 +{store_Items[i].AttackPower} | {store_Items[i].Information,-10} | {store_Items[i].Price} G");
+					}
+					else
+					{
+						Console.WriteLine($"- {i + 1} {store_Items[i].Name,-6}  | 공격력 +{store_Items[i].AttackPower} | {store_Items[i].Information,-10} | 소지 중");
+					}
+
+				}
+				else if (store_Items[i].AttackPower == 0)
+				{
+					if (!store_Items[i].I_Exist)
+					{
+						Console.WriteLine($"- {i + 1} {store_Items[i].Name,-6}  | 방어력 +{store_Items[i].DefensivePower} | {store_Items[i].Information,-10} | {store_Items[i].Price} G");
+					}
+					else
+					{
+						Console.WriteLine($"- {i + 1} {store_Items[i].Name,-6}  | 방어력 +{store_Items[i].DefensivePower} | {store_Items[i].Information,-10} | 소지 중");
+					}
+				}
+			}
+			Console.WriteLine();
+			Console.WriteLine("0. 나가기");
+			Console.WriteLine();
+			Console.WriteLine("원하시는 행동을 입력해주세요.");
+			Console.Write(">>");
+
+			while (true)
+			{
+				string? input = Console.ReadLine();
+				switch (input)
+				{
+					case "1":
+						if (storeItem_chk[0])
+						{
+							if (!store_Items[0].I_Exist && player.Gold >= store_Items[0].Price)
+							{
+								store_Items[0].I_Exist = true;
+								player.Gold -= store_Items[0].Price;
+								items.Add(store_Items[0]);								
+								Console.WriteLine("구매를 완료했습니다.");
+							}
+							else
+							{
+								Console.WriteLine("금액이 부족하거나 이미 소지 중인 아이템입니다.");
+							}
+						}
+						else
+						{
+							Console.WriteLine("잘못된 입력입니다.");
+						}
+						break;
+					case "2":
+						if (storeItem_chk[1])
+						{
+							if (!store_Items[1].I_Exist && player.Gold >= store_Items[1].Price)
+							{
+								store_Items[1].I_Exist = true;
+								player.Gold -= store_Items[1].Price;
+								items.Add(store_Items[1]);
+								Console.WriteLine("구매를 완료했습니다.");
+							}
+							else
+							{
+								Console.WriteLine("금액이 부족하거나 이미 소지 중인 아이템입니다.");
+							}
+						}
+						else
+						{
+							Console.WriteLine("잘못된 입력입니다.");
+						}
+						break;
+					case "3":
+						if (storeItem_chk[2])
+						{
+							if (!store_Items[2].I_Exist && player.Gold >= store_Items[2].Price)
+							{
+								store_Items[2].I_Exist = true;
+								player.Gold -= store_Items[2].Price;
+								items.Add(store_Items[2]);
+								Console.WriteLine("구매를 완료했습니다.");
+							}
+							else
+							{
+								Console.WriteLine("금액이 부족하거나 이미 소지 중인 아이템입니다.");
+							}
+						}
+						else
+						{
+							Console.WriteLine("잘못된 입력입니다.");
+						}
+						break;
+					case "4":
+						if (storeItem_chk[3])
+						{
+							if (!store_Items[3].I_Exist && player.Gold >= store_Items[3].Price)
+							{
+								store_Items[3].I_Exist = true;
+								player.Gold -= store_Items[3].Price;
+								items.Add(store_Items[3]);
+								Console.WriteLine("구매를 완료했습니다.");
+							}
+							else
+							{
+								Console.WriteLine("금액이 부족하거나 이미 소지 중인 아이템입니다.");
+							}
+						}
+						else
+						{
+							Console.WriteLine("잘못된 입력입니다.");
+						}
+						break;
+					case "5":
+						if (storeItem_chk[4])
+						{
+							if (!store_Items[4].I_Exist && player.Gold >= store_Items[4].Price)
+							{
+								store_Items[4].I_Exist = true;
+								player.Gold -= store_Items[4].Price;
+								items.Add(store_Items[4]);
+								Console.WriteLine("구매를 완료했습니다.");
+							}
+							else
+							{
+								Console.WriteLine("금액이 부족하거나 이미 소지 중인 아이템입니다.");
+							}
+						}
+						else
+						{
+							Console.WriteLine("잘못된 입력입니다.");
+						}
+						break;
+
+					case "0": Store(); break;
 					default: Console.WriteLine("잘못된 입력입니다."); break;
 				}
 			}
@@ -671,7 +811,7 @@ namespace ConsoleRPG
 							}
 							break;
 						}
-					case "0": GameStart(); break;
+					case "0": InventoryOn(); break;
 					default: Console.WriteLine("잘못된 입력입니다"); break;
 				}
 			}
