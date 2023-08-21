@@ -115,17 +115,35 @@ namespace ConsoleRPG
 		}
 	}
 
-
+	public class DisplayInfor
+	{
+		public bool OnChk = false;
+		public string Equip_Sign = "";
+		public bool Make = false;
+		public DisplayInfor(bool onChk, string equip_Sign, bool make)
+		{
+			OnChk = onChk;
+			Equip_Sign = equip_Sign;
+			Make = make;	
+		}
+	}
 
 	public class Start
 	{
+		DisplayInfor[] Display = new DisplayInfor[5];
+		bool DisplayArr_chk = false;
 		int AttackUP = 0;
 		int DefensiveUP = 0;
-		string IronArmorDisplay = "";
-		bool IronArmorChk = false;
-		string OldSwordDisplay = "";
-		bool OldSwordChk = false;
-		
+		string Display1 = "";
+		bool chk1 = false;
+		string Display2 = "";
+		bool chk2 = false;
+		string Display3 = "";
+		bool chk3 = false;
+		string Display4 = "";
+		bool chk4 = false;
+		string Display5 = "";
+		bool chk5 = false;
 		private Character player;
 		private List<Item> items;
 		public Start(Player player, List<Item>items)
@@ -161,7 +179,13 @@ namespace ConsoleRPG
 				}
 			}
 		}
-		
+		public void DisArrMake() //디스플레이 배열마다 인자 생성
+		{
+			for(int i = 0; i < Display.Length; i++)
+			{
+				Display[i] = new DisplayInfor(false, "", false);
+			}
+		}
 		public void InventoryOn()
 		{
 			Console.Clear();
@@ -173,19 +197,26 @@ namespace ConsoleRPG
 			Console.WriteLine("[아이템 목록]");
 			for(int i = 0; i < items.Count; i++)
 			{
+				
+				if (!DisplayArr_chk)
+				{
+					DisArrMake();
+					DisplayArr_chk = true;
+				}
+				Display[i].Make = true;
 				if (items[i].DefensivePower == 0)
 				{
-					Console.WriteLine($"- {OldSwordDisplay}{items[i].Name, -6}  | 공격력 +{items[i].AttackPower} | {items[i].Information, 20}");
+					Console.WriteLine($"- {Display[i].Equip_Sign}{items[i].Name, -6}  | 공격력 +{items[i].AttackPower} | {items[i].Information, 20}");
 				}
 				else
 				{
-					Console.WriteLine($"- {IronArmorDisplay}{items[i].Name, -6}  | 방어력 +{items[i].DefensivePower} | {items[i].Information, 20}");
+					Console.WriteLine($"- {Display[i].Equip_Sign}{items[i].Name, -6}  | 방어력 +{items[i].DefensivePower} | {items[i].Information, 20}");
 				}
 			}
 			Console.WriteLine();
 			Console.WriteLine("1. 장착 관리");
-			Console.WriteLine("2. 공격력이 높은 순으로 정렬");
-			Console.WriteLine("3. 방어력이 높은 순으로 정렬");
+			Console.WriteLine("2. 정렬(공격력)");
+			Console.WriteLine("3. 정렬(방어력)");
 			Console.WriteLine("0. 나가기");
 			Console.WriteLine();
 			Console.WriteLine("원하시는 행동을 입력해주세요");
@@ -219,11 +250,11 @@ namespace ConsoleRPG
 			{
 				if (items[i].DefensivePower == 0)
 				{
-					Console.WriteLine($"- {i + 1} {OldSwordDisplay}{items[i].Name, -6}  | 공격력 +{items[i].AttackPower} | {items[i].Information}");
+					Console.WriteLine($"- {i + 1} {Display[i].Equip_Sign}{items[i].Name, -6}  | 공격력 +{items[i].AttackPower} | {items[i].Information}");
 				}
 				else
 				{
-					Console.WriteLine($"- {i + 1} {IronArmorDisplay}{items[i].Name, -6}  | 방어력 +{items[i].DefensivePower} | {items[i].Information}");
+					Console.WriteLine($"- {i + 1} {Display[i].Equip_Sign}{items[i].Name, -6}  | 방어력 +{items[i].DefensivePower} | {items[i].Information}");
 				}
 			}
 			Console.WriteLine();
@@ -237,41 +268,156 @@ namespace ConsoleRPG
 				{
 					case "1":
 						{
-							if (!IronArmorChk)
+							if (Display[0].Make)
 							{
-								IronArmorDisplay = "[E]";
-								IronArmorChk = true;
-								DefensiveUP += items[0].DefensivePower;
-								player.DefensivePower += items[0].DefensivePower;
-								InventoryManager();
+								if (!Display[0].OnChk)
+								{
+									Display[0].Equip_Sign = "[E]";
+									Display[0].OnChk = true;
+									DefensiveUP += items[0].DefensivePower;
+									AttackUP += items[0].AttackPower;
+									player.DefensivePower += items[0].DefensivePower;
+									player.AttackPower += items[0].AttackPower;
+									InventoryManager();
+								}
+								else
+								{
+									Display[0].Equip_Sign = "";
+									Display[0].OnChk = false;
+									DefensiveUP -= items[0].DefensivePower;
+									AttackUP += items[0].AttackPower;
+									player.DefensivePower -= items[0].DefensivePower;
+									player.AttackPower -= items[0].AttackPower;
+									InventoryManager();
+								}
 							}
 							else
 							{
-								IronArmorDisplay = "";
-								IronArmorChk = false;
-								DefensiveUP -= items[0].DefensivePower;
-								player.DefensivePower -= items[0].DefensivePower;
-								InventoryManager();
+								Console.WriteLine("잘못된 입력입니다");
 							}
 							break;
 						}
 					case "2":
 						{
-							if (!OldSwordChk)
+							if (Display[1].Make)
 							{
-								OldSwordDisplay = "[E]";
-								OldSwordChk = true;
-								AttackUP += items[1].AttackPower;
-								player.AttackPower += items[1].AttackPower;
-								InventoryManager();
+								if (!Display[1].OnChk)
+								{
+									Display[1].Equip_Sign = "[E]";
+									Display[1].OnChk = true;
+									DefensiveUP += items[1].DefensivePower;
+									AttackUP += items[1].AttackPower;
+									player.DefensivePower += items[1].DefensivePower;
+									player.AttackPower += items[1].AttackPower;
+									InventoryManager();
+								}
+								else
+								{
+									Display[1].Equip_Sign = "";
+									Display[1].OnChk = false;
+									DefensiveUP -= items[1].DefensivePower;
+									AttackUP -= items[1].AttackPower;
+									player.DefensivePower -= items[1].DefensivePower;
+									player.AttackPower -= items[1].AttackPower;
+									InventoryManager();
+								}
 							}
 							else
 							{
-								OldSwordDisplay = "";
-								OldSwordChk = false;
-								AttackUP -= items[1].AttackPower;
-								player.AttackPower -= items[1].AttackPower;
-								InventoryManager();
+								Console.WriteLine("잘못된 입력입니다.");
+							}
+							break;
+						}
+					case "3":
+						{
+							if (Display[2].Make)
+							{
+								if (!Display[2].OnChk)
+								{
+									Display[2].Equip_Sign = "[E]";
+									Display[2].OnChk = true;
+									DefensiveUP += items[2].DefensivePower;
+									AttackUP += items[2].AttackPower;
+									player.DefensivePower += items[2].DefensivePower;
+									player.AttackPower += items[2].AttackPower;
+									InventoryManager();
+								}
+								else
+								{
+									Display[2].Equip_Sign = "";
+									Display[2].OnChk = false;
+									DefensiveUP -= items[2].DefensivePower;
+									AttackUP -= items[2].AttackPower;
+									player.DefensivePower -= items[2].DefensivePower;
+									player.AttackPower -= items[2].AttackPower;
+									InventoryManager();
+								}
+							}
+							else
+							{
+								Console.WriteLine("잘못된 입력입니다.");
+							}
+							break;
+						}
+					case "4":
+						{
+							if (Display[3].Make)
+							{
+								if (!Display[3].OnChk)
+								{
+									Display[3].Equip_Sign = "[E]";
+									Display[3].OnChk = true;
+									DefensiveUP += items[3].DefensivePower;
+									AttackUP += items[3].AttackPower;
+									player.DefensivePower += items[3].DefensivePower;
+									player.AttackPower += items[3].AttackPower;
+									InventoryManager();
+								}
+								else
+								{
+									Display[3].Equip_Sign = "";
+									Display[3].OnChk = false;
+									DefensiveUP -= items[3].DefensivePower;
+									AttackUP -= items[3].AttackPower;
+									player.DefensivePower -= items[3].DefensivePower;
+									player.AttackPower -= items[3].AttackPower;
+									InventoryManager();
+								}
+							}
+							else
+							{
+								Console.WriteLine("잘못된 입력입니다.");
+							}
+							break;
+						}
+					case "5":
+						{
+							if (Display[4].Make)
+							{
+								if (!Display[4].OnChk)
+								{
+									Display[4].Equip_Sign = "[E]";
+									Display[4].OnChk = true;
+									DefensiveUP += items[4].DefensivePower;
+									AttackUP += items[4].AttackPower;
+									player.DefensivePower += items[4].DefensivePower;
+									player.AttackPower += items[4].AttackPower;
+									InventoryManager();
+								}
+								else
+								{
+									Display[4].Equip_Sign = "";
+									Display[4].OnChk = false;
+									DefensiveUP -= items[4].DefensivePower;
+									AttackUP -= items[4].AttackPower;
+									player.DefensivePower -= items[4].DefensivePower;
+									player.AttackPower -= items[0].AttackPower;
+									InventoryManager();
+								}
+							}
+							else
+							{
+								Console.WriteLine("잘못된 입력입니다.");
 							}
 							break;
 						}
@@ -309,7 +455,7 @@ namespace ConsoleRPG
 			Console.WriteLine($"이름 : {player.Name}");
 			Console.WriteLine($"Lv {player.Level}");
 			Console.WriteLine($"Chad ( {player.chad} )");
-			if (OldSwordChk)
+			if (AttackUP > 0)
 			{
 				Console.WriteLine($"공격력 : {player.AttackPower} (+{AttackUP})");
 			}
@@ -317,7 +463,7 @@ namespace ConsoleRPG
 			{
 				Console.WriteLine($"공격력 : {player.AttackPower}");
 			}
-			if (IronArmorChk)
+			if (DefensiveUP > 0)
 			{
 				Console.WriteLine($"방어력 : {player.DefensivePower} (+{DefensiveUP})");
 			}
