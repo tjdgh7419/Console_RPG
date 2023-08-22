@@ -71,7 +71,7 @@ namespace ConsoleRPG
 
 		public void EnhanceOn()
 		{
-			bool[]storeItem_chk = new bool[5];
+			bool[]EnhanceItem_chk = new bool[5];
 			Console.Clear();
 			Console.ForegroundColor = ConsoleColor.Cyan;
 			Console.WriteLine("강화하기");
@@ -83,7 +83,7 @@ namespace ConsoleRPG
 			Console.WriteLine();
 			for (int i = 0; i < items.Count; i++)
 			{
-				storeItem_chk[i] = true;
+				EnhanceItem_chk[i] = true;
 				if (items[i].DefensivePower == 0)
 				{
 					Console.WriteLine($"- {i + 1} {items[i].Name,-6}  | 공격력 +{items[i].AttackPower} | {items[i].Information,-10}");
@@ -101,13 +101,14 @@ namespace ConsoleRPG
 			while (true)
 			{
 				string? input = Console.ReadLine();
-				switch (input)
-				{
-					case "1": Enhance(items[0]); break;
-					case "2": Enhance(items[1]); break;
-					case "3": Store(); break;
-					case "4": Dungeon(); break;
-					case "5": RestOn(); break;
+				
+					switch (input)
+				{				
+					case "1": if (EnhanceItem_chk[0]) Enhance(items[0]); else Console.WriteLine("잘못된 입력입니다"); break;
+					case "2": if (EnhanceItem_chk[1]) Enhance(items[1]); else Console.WriteLine("잘못된 입력입니다"); break;
+					case "3": if (EnhanceItem_chk[2]) Enhance(items[2]); else Console.WriteLine("잘못된 입력입니다"); break;
+					case "4": if (EnhanceItem_chk[3]) Enhance(items[3]); else Console.WriteLine("잘못된 입력입니다"); break;
+					case "5": if (EnhanceItem_chk[4]) Enhance(items[4]); else Console.WriteLine("잘못된 입력입니다"); break;
 					case "0": GameStart(); break;
 					default: Console.WriteLine("잘못된 입력입니다"); break;
 				}
@@ -200,6 +201,7 @@ namespace ConsoleRPG
 				}
 			}
 		}
+		
 		public void RestOn()
 		{
 			Console.Clear();
