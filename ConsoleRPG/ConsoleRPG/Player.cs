@@ -11,20 +11,20 @@ namespace ConsoleRPG
 		public int Level { get; set; }
 		public string Name { get; }
 		public string chad { get; }
-		public int AttackPower { get; set; }
-		public int DefensivePower { get; set; }
-		public int Health { get; set; }
+		public float AttackPower { get; set; }
+		public float DefensivePower { get; set; }
+		public float Health { get; set; }
 		public int Gold { get; set; }
 
 		public Player(string Name, string chad)
 		{
 
-			Level = 01;
+			Level = 1;
 			this.Name = Name;
 			this.chad = chad;
-			AttackPower = 10;
-			DefensivePower = 5;
-			Health = 100;
+			AttackPower = 10.0f;
+			DefensivePower = 5.0f;
+			Health = 100.0f;
 			Gold = 1500;
 		}
 

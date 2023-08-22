@@ -9,8 +9,8 @@ namespace ConsoleRPG
 		bool rest; // 휴식 판별
 		bool atk = false;
 		bool def = false;
-		Item AtkItem = null;
-		Item DefItem = null;
+		Item ?AtkItem = null;
+		Item ?DefItem = null;
 		int AttackUP = 0;
 		int DefensiveUP = 0;
 		public Character player;
@@ -130,10 +130,10 @@ namespace ConsoleRPG
 			Random ClearRan = new Random();
 			Random DownHpRan = new Random();
 			Random GoldRan = new Random();
-			int GoldAtk = GoldRan.Next(player.AttackPower, (player.AttackPower * 2) + 1);
+			int GoldAtk = GoldRan.Next((int)player.AttackPower, (int)(player.AttackPower * 2) + 1);
 			int clearChk = ClearRan.Next(1, 11);
 			int DownHp = DownHpRan.Next(20, 36);
-			int PreviousHP = player.Health;
+			int PreviousHP = (int)player.Health;
 			int PreviousGold = player.Gold;
 
 			if (player.DefensivePower < 5)
@@ -146,7 +146,7 @@ namespace ConsoleRPG
 						player.PlayerDead();
 					}
 					else
-					{
+					{ 		
 						StageFail(PreviousHP, "쉬움");
 					}
 				}
@@ -186,10 +186,10 @@ namespace ConsoleRPG
 			Random ClearRan = new Random();
 			Random DownHpRan = new Random();
 			Random GoldRan = new Random();
-			int GoldAtk = GoldRan.Next(player.AttackPower, (player.AttackPower * 2) + 1);
+			int GoldAtk = GoldRan.Next((int)player.AttackPower, (int)(player.AttackPower * 2) + 1);
 			int clearChk = ClearRan.Next(1, 11);
 			int DownHp = DownHpRan.Next(20, 36);
-			int PreviousHP = player.Health;
+			int PreviousHP = (int)player.Health;
 			int PreviousGold = player.Gold;
 
 			if (player.DefensivePower < 11)
@@ -242,10 +242,10 @@ namespace ConsoleRPG
 			Random ClearRan = new Random();
 			Random DownHpRan = new Random();
 			Random GoldRan = new Random();
-			int GoldAtk = GoldRan.Next(player.AttackPower, (player.AttackPower * 2) + 1);
+			int GoldAtk = GoldRan.Next((int)player.AttackPower, (int)(player.AttackPower * 2) + 1);
 			int clearChk = ClearRan.Next(1, 11);
 			int DownHp = DownHpRan.Next(20, 36);
-			int PreviousHP = player.Health;
+			int PreviousHP = (int)player.Health;
 			int PreviousGold = player.Gold;
 
 			if (player.DefensivePower < 17)
@@ -296,6 +296,9 @@ namespace ConsoleRPG
 
 		public void StageClear(int PrevHP, int PrevGold, string StageLevel)
 		{
+			player.Level += 1;
+			player.AttackPower += 0.5f;
+			player.DefensivePower += 1.0f;
 			Console.Clear();
 			Console.WriteLine("던전 클리어");
 			Console.WriteLine("축하합니다!!");

@@ -11,9 +11,9 @@ namespace ConsoleRPG
 		int Level { get; set; }
 		string Name { get; }
 		string chad { get; }
-		int AttackPower { get; set; }
-		int DefensivePower { get; set; }
-		int Health { get; set; }
+		float AttackPower { get; set; }
+		float DefensivePower { get; set; }
+		float Health { get; set; }
 		int Gold { get; set; }
 		void PlayerDead();
 	}
