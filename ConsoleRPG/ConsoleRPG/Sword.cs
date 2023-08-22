@@ -16,6 +16,7 @@ namespace ConsoleRPG
 		public bool I_Exist { get; set; }
 		public bool equipped { get; set; }
 		public string Sign { get; set; }
+		public int EnhanceNum { get; set; }
 
 		public Sword(string Name, int AttackPower, string Information)
 		{
@@ -27,6 +28,7 @@ namespace ConsoleRPG
 			I_Exist = false;
 			equipped = false;
 			Sign = "";
+			EnhanceNum = 0;
 		}
 	}
 }

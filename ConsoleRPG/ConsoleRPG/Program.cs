@@ -40,11 +40,55 @@ namespace ConsoleRPG
 			Console.WriteLine("3. 상점");
 			Console.WriteLine("4. 던전입장");
 			Console.WriteLine("5. 휴식하기");
+			Console.WriteLine("6. 강화하기");
 			Console.WriteLine();
 
 			Console.WriteLine("원하시는 행동을 입력해주세요.");
 			Console.Write(">>");
 
+			while (true)
+			{
+				string? input = Console.ReadLine();
+				switch (input)
+				{
+					case "1": StateOn(); break;
+					case "2": InventoryOn(); break;
+					case "3": Store(); break;
+					case "4": Dungeon(); break;
+					case "5": RestOn(); break;
+					case "6": Enhance(); break;
+					default: Console.WriteLine("잘못된 입력입니다"); break;
+				}
+			}
+		}
+
+		public void Enhance()
+		{
+			bool[]storeItem_chk = new bool[5];
+			Console.Clear();
+			Console.WriteLine("강화하기");
+			Console.WriteLine("무기를 강화하는 곳입니다.");
+			Console.WriteLine();
+			Console.WriteLine("[아이템 목록]");
+			Console.WriteLine("강화할 무기를 선택하세요.");
+			Console.WriteLine();
+			for (int i = 0; i < items.Count; i++)
+			{
+				storeItem_chk[i] = true;
+				if (items[i].DefensivePower == 0)
+				{
+					Console.WriteLine($"- {i + 1} {items[i].Name,-6}  | 공격력 +{items[i].AttackPower} | {items[i].Information,-10}");
+				}
+				else if (items[i].AttackPower == 0)
+				{
+					Console.WriteLine($"- {i + 1} {items[i].Name,-6}  | 방어력 +{items[i].DefensivePower} | {items[i].Information,-10}");
+				}
+			}
+			Console.WriteLine();
+			Console.WriteLine("0. 나가기");
+			Console.WriteLine();
+			Console.WriteLine("원하시는 행동을 입력해주세요.");
+			Console.Write(">>");
 			while (true)
 			{
 				string? input = Console.ReadLine();
