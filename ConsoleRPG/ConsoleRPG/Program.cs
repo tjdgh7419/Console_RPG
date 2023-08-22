@@ -3,18 +3,7 @@ using System;
 
 namespace ConsoleRPG
 {
-	// 혹시 몰라서 interface로 구현, 바로 클래스로 구현 가능
 	
-
-	
-	public class State : Player
-	{
-		public State(string Name, string chad) : base(Name, chad) { }
-
-	}
-
-	
-
 	public class IronArmor : Item
 	{
 		public string Name { get; set; }
