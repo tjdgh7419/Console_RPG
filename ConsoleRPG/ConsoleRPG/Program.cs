@@ -34,16 +34,20 @@ namespace ConsoleRPG
 			Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다.");
 			Console.WriteLine("이곳에서 던전을 들어가기 전 활동을 할 수 있습니다.");
 			Console.WriteLine();
-			Console.ForegroundColor = ConsoleColor.Green;
-			Console.WriteLine("1. 상태 보기");
-			Console.ResetColor();
 			Console.ForegroundColor = ConsoleColor.Yellow;
+			Console.WriteLine("1. 상태 보기");
+			Console.WriteLine();
 			Console.WriteLine("2. 인벤토리");
-			Console.ResetColor();
+			Console.WriteLine();
 			Console.WriteLine("3. 상점");
+			Console.WriteLine();
 			Console.WriteLine("4. 던전입장");
+			Console.WriteLine();
 			Console.WriteLine("5. 휴식하기");
+			Console.WriteLine();
 			Console.WriteLine("6. 강화하기");
+			Console.WriteLine();
+			Console.ResetColor();
 			Console.WriteLine();
 
 			Console.WriteLine("원하시는 행동을 입력해주세요.");
@@ -69,7 +73,9 @@ namespace ConsoleRPG
 		{
 			bool[]storeItem_chk = new bool[5];
 			Console.Clear();
+			Console.ForegroundColor = ConsoleColor.Cyan;
 			Console.WriteLine("강화하기");
+			Console.ResetColor();
 			Console.WriteLine("무기를 강화하는 곳입니다.");
 			Console.WriteLine();
 			Console.WriteLine("[아이템 목록]");
@@ -115,7 +121,9 @@ namespace ConsoleRPG
 			int enNum = EnhanceChance.Next(1, 101);
 			int E_Chance = (E_Item.EnhanceNum * 10) + (E_Item.EnhanceNum * 5);
 			Console.Clear();
+			Console.ForegroundColor = ConsoleColor.Cyan;
 			Console.WriteLine("강화하기");
+			Console.ResetColor();
 			Console.WriteLine("무기를 강화하는 곳입니다.");
 			Console.WriteLine();
 			Console.WriteLine("[현재 선택된 아이템]");
@@ -195,7 +203,9 @@ namespace ConsoleRPG
 		public void RestOn()
 		{
 			Console.Clear();
+			Console.ForegroundColor = ConsoleColor.Magenta;
 			Console.WriteLine("휴식하기");
+			Console.ResetColor();
 			Console.WriteLine($"500 G 를 내면 체력을 회복할 수 있습니다.    보유골드 : {player.Gold} G");
 			Console.WriteLine();
 			Console.WriteLine("1. 휴식하기");
@@ -236,12 +246,24 @@ namespace ConsoleRPG
 		public void Dungeon()
 		{
 			Console.Clear();
+			Console.ForegroundColor = ConsoleColor.Red;
 			Console.WriteLine("던전입장");
+			Console.ResetColor();
 			Console.WriteLine("이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.");
 			Console.WriteLine();
+			Console.ForegroundColor = ConsoleColor.Green;
 			Console.WriteLine("1. 쉬운 던전     | 방어력 5 이상 권장");
+			Console.ResetColor();
+			Console.WriteLine();
+			Console.ForegroundColor = ConsoleColor.Yellow;
 			Console.WriteLine("2. 일반 던전     | 방어력 11 이상 권장");
+			Console.ResetColor();
+			Console.WriteLine();
+			Console.ForegroundColor = ConsoleColor.Red;
 			Console.WriteLine("3. 어려운 던전    | 방어력 17 이상 권장");
+			Console.ResetColor();
+			Console.WriteLine();
+			Console.WriteLine();
 			Console.WriteLine("0. 나가기");
 			Console.WriteLine();
 			Console.WriteLine("원하시는 행동을 입력해주세요.");
@@ -485,7 +507,9 @@ namespace ConsoleRPG
 		public void Store()
 		{
 			Console.Clear();
+			Console.ForegroundColor = ConsoleColor.Blue;
 			Console.WriteLine("상점");
+			Console.ResetColor();
 			Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.");
 			Console.WriteLine();
 			Console.WriteLine("[보유 골드]");
@@ -543,7 +567,9 @@ namespace ConsoleRPG
 		{
 			bool[] storeItem_chk = new bool[5];
 			Console.Clear();
+			Console.ForegroundColor = ConsoleColor.Blue;
 			Console.WriteLine("상점 - 아이템 판매");
+			Console.ResetColor();
 			Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.");
 			Console.WriteLine();
 			Console.WriteLine("[보유 골드]");
@@ -729,7 +755,9 @@ namespace ConsoleRPG
 		{
 			bool[] storeItem_chk = new bool[5];
 			Console.Clear();
+			Console.ForegroundColor = ConsoleColor.Blue;
 			Console.WriteLine("상점 - 아이템 구매");
+			Console.ResetColor();
 			Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.");
 			Console.WriteLine();
 			Console.WriteLine("[보유 골드]");
