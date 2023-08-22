@@ -139,7 +139,7 @@ namespace ConsoleRPG
 		public bool I_Exist { get; set; }
 		public bool equipped { get; set; }
 		public string Sign { get; set; }
-
+		
 		public Sword(string Name, int AttackPower, string Information)
 		{
 			this.Name = Name;
@@ -194,7 +194,6 @@ namespace ConsoleRPG
 			this.items = items;
 			this.store_Items = store_Items;
 		}
-
 		public void GameStart()
 		{
 			Console.Clear();
@@ -209,6 +208,8 @@ namespace ConsoleRPG
 			Console.ResetColor();
 			Console.WriteLine("3. 상점");
 			Console.WriteLine();
+			Console.WriteLine("4. 던전입장");
+			Console.WriteLine();
 
 			Console.WriteLine("원하시는 행동을 입력해주세요.");
 			Console.Write(">>");
@@ -220,9 +221,21 @@ namespace ConsoleRPG
 					case "1": StateOn(); break;
 					case "2": InventoryOn(); break;
 					case "3": Store(); break;
+					case "4": ; break;
 					default: Console.WriteLine("잘못된 입력입니다"); break;
 				}
 			}
+		}
+
+		public void Dungeon()
+		{
+			Console.Clear();
+			Console.WriteLine("던전입장");
+			Console.WriteLine("이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.");
+			Console.WriteLine();
+			Console.WriteLine("1. 쉬운 던전");
+			Console.WriteLine("2. 일반 던전");
+			Console.WriteLine("3. 어려운 던전");
 		}
 
 		public void Store()
