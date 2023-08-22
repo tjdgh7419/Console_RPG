@@ -4,16 +4,7 @@ using System;
 namespace ConsoleRPG
 {
 	// 혹시 몰라서 interface로 구현, 바로 클래스로 구현 가능
-	public interface Character
-	{
-		int Level { get; set; }
-		string Name { get; }
-		string chad { get; }
-		int AttackPower { get; set; }
-		int DefensivePower { get; set; }
-		int Health { get; set; }
-		int Gold { get; set; }
-	}
+	
 
 	public class Player : Character
 	{
@@ -27,6 +18,7 @@ namespace ConsoleRPG
 
 		public Player(string Name, string chad)
 		{
+			
 			Level = 01;
 			this.Name = Name;
 			this.chad = chad;
@@ -36,6 +28,11 @@ namespace ConsoleRPG
 			Gold = 1500;
 		}
 
+		public void PlayerDead()
+		{
+			Console.Clear();
+			Console.WriteLine($"{Name} 이 죽었습니다..");
+		}
 	}
 	public class State : Player
 	{
@@ -188,7 +185,7 @@ namespace ConsoleRPG
 		private Character player;
 		private List<Item> items;
 		private List<Item> store_Items;
-		public Start(Player player, List<Item>items, List<Item>store_Items)
+		public Start(Character player, List<Item>items, List<Item>store_Items)
 		{
 			this.player = player;
 			this.items = items;
@@ -270,14 +267,28 @@ namespace ConsoleRPG
 				if(clearChk <= 4)
 				{
 					player.Health -= PreviousHP / 2;
-					StageFail(PreviousHP, "쉬움");
+					if (player.Health < 0)
+					{
+						player.PlayerDead();
+					}
+					else
+					{
+						StageFail(PreviousHP, "쉬움");
+					}
 				}
 				else
 				{
 					int extraGold = 10 * GoldAtk; // 1000/100 = 10
 					player.Gold += 1000 + extraGold;
-					player.Health -= DownHp + (5 - player.DefensivePower); 
-					StageClear(PreviousHP, PreviousGold, "쉬움");
+					player.Health -= DownHp + (5 - player.DefensivePower);
+					if (player.Health > 0)
+					{
+						player.PlayerDead();
+					}
+					else
+					{
+						StageClear(PreviousHP, PreviousGold, "쉬움");
+					}
 				}
 			}
 			else
@@ -285,7 +296,14 @@ namespace ConsoleRPG
 				int extraGold = 10 * GoldAtk;
 				player.Gold += 1000 + extraGold;
 				player.Health -= DownHp - (player.DefensivePower - 5);
-				StageClear(PreviousHP, PreviousGold, "쉬움");
+				if (player.Health < 0)
+				{
+					player.PlayerDead();
+				}
+				else
+				{
+					StageClear(PreviousHP, PreviousGold, "쉬움");
+				}
 			}
 		}
 
@@ -305,14 +323,28 @@ namespace ConsoleRPG
 				if (clearChk <= 4)
 				{
 					player.Health -= PreviousHP / 2;
-					StageFail(PreviousHP, "일반");
+					if (player.Health < 0)
+					{
+						player.PlayerDead();
+					}
+					else
+					{
+						StageFail(PreviousHP, "일반");
+					}
 				}
 				else
 				{
 					int extraGold = 17 * GoldAtk; // 1700/100 = 10
 					player.Gold += 1700 + extraGold;
 					player.Health -= DownHp + (11 - player.DefensivePower);
-					StageClear(PreviousHP, PreviousGold, "일반");
+					if (player.Health < 0)
+					{
+						player.PlayerDead();
+					}
+					else
+					{
+						StageClear(PreviousHP, PreviousGold, "일반");
+					}
 				}
 			}
 			else
@@ -320,7 +352,14 @@ namespace ConsoleRPG
 				int extraGold = 17 * GoldAtk;
 				player.Gold += 1700 + extraGold;
 				player.Health -= DownHp - (player.DefensivePower - 11);
-				StageClear(PreviousHP, PreviousGold, "일반");
+				if (player.Health < 0)
+				{
+					player.PlayerDead();
+				}
+				else 
+				{ 
+					StageClear(PreviousHP, PreviousGold, "일반");
+				}
 			}
 		}
 
@@ -339,15 +378,30 @@ namespace ConsoleRPG
 			{
 				if (clearChk <= 4)
 				{
+					
 					player.Health -= PreviousHP / 2;
-					StageFail(PreviousHP, "어려움");
+					if (player.Health < 0)
+					{
+						player.PlayerDead();
+					}
+					else
+					{
+						StageFail(PreviousHP, "어려움");
+					}
 				}
 				else
 				{
 					int extraGold = 25 * GoldAtk; // 2500/100 = 10
 					player.Gold += 2500 + extraGold;
 					player.Health -= DownHp + (17 - player.DefensivePower);
-					StageClear(PreviousHP, PreviousGold, "어려움");
+					if (player.Health < 0)
+					{
+						player.PlayerDead();
+					}
+					else
+					{
+						StageClear(PreviousHP, PreviousGold, "어려움");
+					}
 				}
 			}
 			else
@@ -355,7 +409,14 @@ namespace ConsoleRPG
 				int extraGold = 25 * GoldAtk;
 				player.Gold += 2500 + extraGold;
 				player.Health -= DownHp - (player.DefensivePower - 17);
-				StageClear(PreviousHP, PreviousGold, "어려움");
+				if (player.Health < 0)
+				{
+					player.PlayerDead();
+				}
+				else
+				{
+					StageClear(PreviousHP, PreviousGold, "어려움");
+				}
 			}
 		}
 
@@ -1461,7 +1522,6 @@ namespace ConsoleRPG
 			
 			items.Add(store_Items[1]);
 			items.Add(store_Items[2]);
-
 			Player player = new State("Sungho" , "전사");
 			Start start = new Start(player, items, store_Items);
 
