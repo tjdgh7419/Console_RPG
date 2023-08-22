@@ -15,5 +15,8 @@
 - **IDE** : Visual Studio2022
 
 ## 주요 기능
-    GameStart()
+
 #### 시작 화면
+    GameStart();
+    
+
