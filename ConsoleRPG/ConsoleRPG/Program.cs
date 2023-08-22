@@ -7,6 +7,7 @@ namespace ConsoleRPG
 	public class Start
 	{
 		bool rest; // 휴식 판별
+		bool purchase; // 구매 판별
 		bool atk = false;
 		bool def = false;
 		Item ?AtkItem = null;
@@ -632,9 +633,10 @@ namespace ConsoleRPG
 			Console.WriteLine();
 			Console.WriteLine("0. 나가기");
 			Console.WriteLine();
+			if (purchase) Console.WriteLine("구매를 완료했습니다."); Console.WriteLine();
 			Console.WriteLine("원하시는 행동을 입력해주세요.");
 			Console.Write(">>");
-
+			purchase = false;
 			while (true)
 			{
 				string? input = Console.ReadLine();
@@ -648,6 +650,7 @@ namespace ConsoleRPG
 								store_Items[0].I_Exist = true;
 								player.Gold -= store_Items[0].Price;
 								items.Add(store_Items[0]);
+								purchase = true;
 								StorePurchase();
 							}
 							else
@@ -668,6 +671,7 @@ namespace ConsoleRPG
 								store_Items[1].I_Exist = true;
 								player.Gold -= store_Items[1].Price;
 								items.Add(store_Items[1]);
+								purchase = true;
 								StorePurchase();
 							}
 							else
@@ -688,6 +692,7 @@ namespace ConsoleRPG
 								store_Items[2].I_Exist = true;
 								player.Gold -= store_Items[2].Price;
 								items.Add(store_Items[2]);
+								purchase = true;
 								StorePurchase();
 							}
 							else
@@ -708,6 +713,7 @@ namespace ConsoleRPG
 								store_Items[3].I_Exist = true;
 								player.Gold -= store_Items[3].Price;
 								items.Add(store_Items[3]);
+								purchase = true;
 								StorePurchase();
 							}
 							else
@@ -728,6 +734,7 @@ namespace ConsoleRPG
 								store_Items[4].I_Exist = true;
 								player.Gold -= store_Items[4].Price;
 								items.Add(store_Items[4]);
+								purchase = true;
 								StorePurchase();
 							}
 							else
