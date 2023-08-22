@@ -1,19 +1,32 @@
-﻿/*using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ConsoleRPG
 {
-	public class Enhanc
+	public class Enhanc : Item
 	{
 		bool En_Suc; //강화 성공
 		bool En_Fail;
-		public void EnhanceOn()
+		public string Name { get; set; }
+		public int DefensivePower { get; set; }
+		public int AttackPower { get; set; }
+		public string Information { get; set; }
+		public int Price { get; set; }
+		public bool I_Exist { get; set; }
+		public bool equipped { get; set; }
+		public string Sign { get; set; }
+		public int EnhanceNum { get; set; }
+
+		Start s1 = Start.Instance();
+		public int EnhanceOn()
 		{
-			bool[] storeItem_chk = new bool[5];
+			
+			bool[] EnhanceItem_chk = new bool[5];
 			Console.Clear();
 			Console.ForegroundColor = ConsoleColor.Cyan;
 			Console.WriteLine("강화하기");
@@ -23,16 +36,16 @@ namespace ConsoleRPG
 			Console.WriteLine("[아이템 목록]");
 			Console.WriteLine("강화할 무기를 선택하세요.");
 			Console.WriteLine();
-			for (int i = 0; i < items.Count; i++)
+			for (int i = 0; i < s1.items.Count; i++)
 			{
-				storeItem_chk[i] = true;
-				if (items[i].DefensivePower == 0)
+				EnhanceItem_chk[i] = true;
+				if (s1.items[i].DefensivePower == 0)
 				{
-					Console.WriteLine($"- {i + 1} {items[i].Name,-6}  | 공격력 +{items[i].AttackPower} | {items[i].Information,-10}");
+					Console.WriteLine($"- {i + 1} {s1.items[i].Name,-6}  | 공격력 +{s1.items[i].AttackPower} | {s1.items[i].Information,-10}");
 				}
-				else if (items[i].AttackPower == 0)
+				else if (s1.items[i].AttackPower == 0)
 				{
-					Console.WriteLine($"- {i + 1} {items[i].Name,-6}  | 방어력 +{items[i].DefensivePower} | {items[i].Information,-10}");
+					Console.WriteLine($"- {i + 1} {s1.items[i].Name,-6}  | 방어력 +{s1.items[i].DefensivePower} | {s1.items[i].Information,-10}");
 				}
 			}
 			Console.WriteLine();
@@ -43,14 +56,15 @@ namespace ConsoleRPG
 			while (true)
 			{
 				string? input = Console.ReadLine();
+
 				switch (input)
 				{
-					case "1": Enhance(items[0]); break;
-					case "2": Enhance(items[1]); break;
-					case "3": Store(); break;
-					case "4": Dungeon(); break;
-					case "5": RestOn(); break;
-					case "0": GameStart(); break;
+					case "1": if (EnhanceItem_chk[0]) Enhance(s1.items[0]); else Console.WriteLine("잘못된 입력입니다"); break;
+					case "2": if (EnhanceItem_chk[1]) Enhance(s1.items[1]); else Console.WriteLine("잘못된 입력입니다"); break;
+					case "3": if (EnhanceItem_chk[2]) Enhance(s1.items[2]); else Console.WriteLine("잘못된 입력입니다"); break;
+					case "4": if (EnhanceItem_chk[3]) Enhance(s1.items[3]); else Console.WriteLine("잘못된 입력입니다"); break;
+					case "5": if (EnhanceItem_chk[4]) Enhance(s1.items[4]); else Console.WriteLine("잘못된 입력입니다"); break;
+					case "0": s1.GameStart(); break;
 					default: Console.WriteLine("잘못된 입력입니다"); break;
 				}
 			}
@@ -80,7 +94,7 @@ namespace ConsoleRPG
 				Console.WriteLine($"방어력 : {E_Item.DefensivePower}");
 			}
 			Console.WriteLine();
-			Console.WriteLine($"강화수치 : + {E_Item.EnhanceNum}     |     보유 골드 : {player.Gold} G");
+			Console.WriteLine($"강화수치 : + {E_Item.EnhanceNum}     |     보유 골드 : {s1.player.Gold} G");
 			Console.WriteLine();
 			Console.WriteLine();
 			Console.WriteLine($"1회 강회 비용: {EnhanceCost} G     |     강화 확률 : {100 - E_Chance} %");
@@ -101,9 +115,9 @@ namespace ConsoleRPG
 				switch (input)
 				{
 					case "1":
-						if (player.Gold > EnhanceCost)
+						if (s1.player.Gold > EnhanceCost)
 						{
-							player.Gold -= EnhanceCost;
+							s1.player.Gold -= EnhanceCost;
 							if (E_Chance < enNum)
 							{
 								if (E_Item.AttackPower > 0)
@@ -144,5 +158,3 @@ namespace ConsoleRPG
 		}
 	}
 }
-			*/
-		

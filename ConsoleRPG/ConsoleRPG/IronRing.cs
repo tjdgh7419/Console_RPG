@@ -17,7 +17,6 @@ namespace ConsoleRPG
 		public bool equipped { get; set; }
 		public string Sign { get; set; }
 		public int EnhanceNum { get; set; }
-
 		public IronRing(string Name, int DefensivePower, string Information)
 		{
 			this.Name = Name;

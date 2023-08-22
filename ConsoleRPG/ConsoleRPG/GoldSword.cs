@@ -18,6 +18,7 @@ namespace ConsoleRPG
 		public string Sign { get; set; }
 		public int EnhanceNum { get; set; }
 
+
 		public GoldSword(string Name, int AttackPower, string Information)
 		{
 			this.Name = Name;

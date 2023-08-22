@@ -2,34 +2,60 @@
 using System;
 using System.Runtime.Serialization;
 using System.Security.Cryptography.X509Certificates;
+using System.Security.Cryptography;
+using System.Collections.Generic;
 
 namespace ConsoleRPG
 {
+	/*private static Player _instance = null;
+	public static Player Instance()
+	{
+		if (_instance == null)
+		{
+			_instance = new Player();
+		}
+
+		return _instance;
+	}*/
 	public class Start
 	{
-		bool En_Suc; //강화 성공
-		bool En_Fail; //강화 실패
+		public static Start _instance = null;
+		public static Start Instance()
+		{
+			if (_instance == null)
+			{
+				_instance = new Start();
+			}
+
+			return _instance;
+		}
 		bool rest; // 휴식 판별
 		bool purchase; // 구매 판별
 		bool atk = false;
 		bool def = false;
-		Item ?AtkItem = null;
-		Item ?DefItem = null;
-		int AttackUP = 0;
-		int DefensiveUP = 0;
-		public Character player;
-		public List<Item> items;
-		public List<Item> store_Items;
+		public Item? AtkItem = null;
+		public Item? DefItem = null;
+		public int AttackUP = 0;
+		public int DefensiveUP = 0;
+		public Player player = new State("Sungho", "전사");
+		public List<Item> store_Items = new List<Item>
+			{ new GoldSword("황금검", 8, "금으로 만들어진 검입니다."),
+			  new IronArmor("무쇠갑옷", 5, "무쇠로 만들어져 튼튼한 갑옷입니다."),
+			  new OldSword("낡은 검", 2, "쉽게 볼 수 있는 낡은 검입니다."),
+			  new Sword("검", 4, "튼튼한 검입니다."),
+			  new IronRing("철반지", 3, "은으로 만들어진 반지입니다.")
+			};
 
-		public Start(Character player, List<Item> items, List<Item> store_Items)
+		public List<Item> items = new List<Item> { };
+		public Start()
 		{
-			this.player = player;
-			this.items = items;
-			this.store_Items = store_Items;
+			items.Add(store_Items[1]);
+			items.Add(store_Items[2]);
 		}
-
+		
 		public void GameStart()
 		{
+			Enhanc eh = new Enhanc();
 			Console.Clear();
 			Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다.");
 			Console.WriteLine("이곳에서 던전을 들어가기 전 활동을 할 수 있습니다.");
@@ -63,12 +89,12 @@ namespace ConsoleRPG
 					case "3": Store(); break;
 					case "4": Dungeon(); break;
 					case "5": RestOn(); break;
-					case "6": EnhanceOn(); break;
+					case "6" : eh.EnhanceOn(); break;
 					default: Console.WriteLine("잘못된 입력입니다"); break;
 				}
 			}
 		}
-
+		/*
 		public void EnhanceOn()
 		{
 			bool[]EnhanceItem_chk = new bool[5];
@@ -114,7 +140,7 @@ namespace ConsoleRPG
 				}
 			}
 		}
-
+		
 		public void Enhance(Item E_Item)
 		{
 			int EnhanceCost = 200 * (E_Item.EnhanceNum + 1) + (20 * E_Item.EnhanceNum);
@@ -201,7 +227,7 @@ namespace ConsoleRPG
 				}
 			}
 		}
-		
+		*/
 		public void RestOn()
 		{
 			Console.Clear();
@@ -304,7 +330,7 @@ namespace ConsoleRPG
 						player.PlayerDead();
 					}
 					else
-					{ 		
+					{
 						StageFail(PreviousHP, "쉬움");
 					}
 				}
@@ -1572,8 +1598,7 @@ namespace ConsoleRPG
 
 			Player player = new State("Sungho", "전사");
 
-			Start start = new Start(player, items, store_Items);
-
+			Start start = new Start();
 			start.GameStart();
 		}
 	}

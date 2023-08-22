@@ -17,5 +17,6 @@ namespace ConsoleRPG
 		bool equipped { get; set; }
 		string Sign { get; set; }
 		int EnhanceNum { get; set; }
+		
 	}
 }
