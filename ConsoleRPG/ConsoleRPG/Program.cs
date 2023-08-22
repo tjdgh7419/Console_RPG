@@ -21,7 +21,6 @@ namespace ConsoleRPG
 			return _instance;
 		}
 		
-		bool purchase; // 구매 판별
 		bool atk = false;
 		bool def = false;
 		public Item? AtkItem = null;
@@ -49,6 +48,7 @@ namespace ConsoleRPG
 			Enhanc eh = new Enhanc();
 			Rest rs = new Rest();
 			DungeonStage ds = new DungeonStage();
+			StoreStage st = new StoreStage();
 			Console.Clear();
 			Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다.");
 			Console.WriteLine("이곳에서 던전을 들어가기 전 활동을 할 수 있습니다.");
@@ -79,7 +79,7 @@ namespace ConsoleRPG
 				{
 					case "1": StateOn(); break;
 					case "2": InventoryOn(); break;
-					case "3": Store(); break;
+					case "3": st.Store(); break;
 					case "4": ds.Dungeon(); break;
 					case "5": rs.RestOn(); break;
 					case "6" : eh.EnhanceOn(); break;
