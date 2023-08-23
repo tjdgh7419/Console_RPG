@@ -63,7 +63,7 @@ namespace ConsoleRPG
 			{
 				if (clearChk <= 4)
 				{
-					s3.player.Health -= PreviousHP / 2;
+					s3.player.Health -= 50;
 					if (s3.player.Health < 0)
 					{
 						s3.player.PlayerDead();
@@ -119,7 +119,7 @@ namespace ConsoleRPG
 			{
 				if (clearChk <= 4)
 				{
-					s3.player.Health -= PreviousHP / 2;
+					s3.player.Health -= 50;
 					if (s3.player.Health < 0)
 					{
 						s3.player.PlayerDead();
@@ -176,7 +176,7 @@ namespace ConsoleRPG
 				if (clearChk <= 4)
 				{
 
-					s3.player.Health -= PreviousHP / 2;
+					s3.player.Health -= 50;
 					if (s3.player.Health < 0)
 					{
 						s3.player.PlayerDead();
