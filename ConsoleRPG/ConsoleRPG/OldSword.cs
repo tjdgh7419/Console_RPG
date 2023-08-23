@@ -17,8 +17,8 @@ namespace ConsoleRPG
 		public bool equipped { get; set; }
 		public string Sign { get; set; }
 		public int EnhanceNum { get; set; }
-		public int OriginAttackPower { get; set; }
-		public int OriginDefensivePower { get; set; }
+		public int OriginAttackPower { get; }
+		public int OriginDefensivePower { get; }
 		public OldSword(string Name, string Information)
 		{
 			this.Name = Name;

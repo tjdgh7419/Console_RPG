@@ -30,11 +30,11 @@ namespace ConsoleRPG
 				{
 					if (!s4.store_Items[i].I_Exist)
 					{
-						Console.WriteLine($"- {s4.store_Items[i].Name,-6}  | 공격력 +{s4.store_Items[i].AttackPower} | {s4.store_Items[i].Information,-10} | {s4.store_Items[i].Price} G");
+						Console.WriteLine($"- {s4.store_Items[i].Name,-6}  | 공격력 +{s4.store_Items[i].OriginAttackPower} | {s4.store_Items[i].Information,-10} | {s4.store_Items[i].Price} G");
 					}
 					else
 					{
-						Console.WriteLine($"- {s4.store_Items[i].Name,-6}  | 공격력 +{s4.store_Items[i].AttackPower} | {s4.store_Items[i].Information,-10} | 소지 중");
+						Console.WriteLine($"- {s4.store_Items[i].Name,-6}  | 공격력 +{s4.store_Items[i].OriginAttackPower} | {s4.store_Items[i].Information,-10} | 소지 중");
 					}
 
 				}
@@ -42,11 +42,11 @@ namespace ConsoleRPG
 				{
 					if (!s4.store_Items[i].I_Exist)
 					{
-						Console.WriteLine($"- {s4.store_Items[i].Name,-6}  | 방어력 +{s4.store_Items[i].DefensivePower} | {s4.store_Items[i].Information,-10} | {s4.store_Items[i].Price} G");
+						Console.WriteLine($"- {s4.store_Items[i].Name,-6}  | 방어력 +{s4.store_Items[i].OriginDefensivePower} | {s4.store_Items[i].Information,-10} | {s4.store_Items[i].Price} G");
 					}
 					else
 					{
-						Console.WriteLine($"- {s4.store_Items[i].Name,-6}  | 방어력 +{s4.store_Items[i].DefensivePower} | {s4.store_Items[i].Information,-10} | 소지 중");
+						Console.WriteLine($"- {s4.store_Items[i].Name,-6}  | 방어력 +{s4.store_Items[i].OriginDefensivePower} | {s4.store_Items[i].Information,-10} | 소지 중");
 					}
 				}
 			}
@@ -278,11 +278,11 @@ namespace ConsoleRPG
 				{
 					if (!s4.store_Items[i].I_Exist)
 					{
-						Console.WriteLine($"- {i + 1} {s4.store_Items[i].Name,-6}  | 공격력 +{s4.store_Items[i].AttackPower} | {s4.store_Items[i].Information,-10} | {s4.store_Items[i].Price} G");
+						Console.WriteLine($"- {i + 1} {s4.store_Items[i].Name,-6}  | 공격력 +{s4.store_Items[i].OriginAttackPower} | {s4.store_Items[i].Information,-10} | {s4.store_Items[i].Price} G");
 					}
 					else
 					{
-						Console.WriteLine($"- {i + 1} {s4.store_Items[i].Name,-6}  | 공격력 +{s4.store_Items[i].AttackPower} | {s4.store_Items[i].Information,-10} | 소지 중");
+						Console.WriteLine($"- {i + 1} {s4.store_Items[i].Name,-6}  | 공격력 +{s4.store_Items[i].OriginAttackPower} | {s4.store_Items[i].Information,-10} | 소지 중");
 					}
 
 				}
@@ -290,11 +290,11 @@ namespace ConsoleRPG
 				{
 					if (!s4.store_Items[i].I_Exist)
 					{
-						Console.WriteLine($"- {i + 1} {s4.store_Items[i].Name,-6}  | 방어력 +{s4.store_Items[i].DefensivePower} | {s4.store_Items[i].Information,-10} | {s4.store_Items[i].Price} G");
+						Console.WriteLine($"- {i + 1} {s4.store_Items[i].Name,-6}  | 방어력 +{s4.store_Items[i].OriginDefensivePower} | {s4.store_Items[i].Information,-10} | {s4.store_Items[i].Price} G");
 					}
 					else
 					{
-						Console.WriteLine($"- {i + 1} {s4.store_Items[i].Name,-6}  | 방어력 +{s4.store_Items[i].DefensivePower} | {s4.store_Items[i].Information,-10} | 소지 중");
+						Console.WriteLine($"- {i + 1} {s4.store_Items[i].Name,-6}  | 방어력 +{s4.store_Items[i].OriginDefensivePower} | {s4.store_Items[i].Information,-10} | 소지 중");
 					}
 				}
 			}

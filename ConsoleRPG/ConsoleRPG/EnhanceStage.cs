@@ -8,20 +8,11 @@ using System.Threading.Tasks;
 
 namespace ConsoleRPG
 {
-	public class EnhanceStage : Item
+	public class EnhanceStage 
 	{
 		bool En_Suc; //강화 성공
 		bool En_Fail;
 		bool En_Equip;
-		public string Name { get; set; }
-		public int DefensivePower { get; set; }
-		public int AttackPower { get; set; }
-		public string Information { get; set; }
-		public int Price { get; set; }
-		public bool I_Exist { get; set; }
-		public bool equipped { get; set; }
-		public string Sign { get; set; }
-		public int EnhanceNum { get; set; }
 
 		Start s1 = Start.Instance();
 		public int EnhanceOn()
