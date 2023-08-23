@@ -12,6 +12,7 @@ namespace ConsoleRPG
 	{
 		bool En_Suc; //강화 성공
 		bool En_Fail;
+		bool En_Equip;
 		public string Name { get; set; }
 		public int DefensivePower { get; set; }
 		public int AttackPower { get; set; }
@@ -36,6 +37,7 @@ namespace ConsoleRPG
 			Console.WriteLine("[아이템 목록]");
 			Console.WriteLine("강화할 무기를 선택하세요.");
 			Console.WriteLine();
+			if (En_Equip) Console.WriteLine("장비를 해제해주세요.");Console.WriteLine();
 			for (int i = 0; i < s1.items.Count; i++)
 			{
 				EnhanceItem_chk[i] = true;
@@ -59,11 +61,61 @@ namespace ConsoleRPG
 
 				switch (input)
 				{
-					case "1": if (EnhanceItem_chk[0]) Enhance(s1.items[0]); else Console.WriteLine("잘못된 입력입니다"); break;
-					case "2": if (EnhanceItem_chk[1]) Enhance(s1.items[1]); else Console.WriteLine("잘못된 입력입니다"); break;
-					case "3": if (EnhanceItem_chk[2]) Enhance(s1.items[2]); else Console.WriteLine("잘못된 입력입니다"); break;
-					case "4": if (EnhanceItem_chk[3]) Enhance(s1.items[3]); else Console.WriteLine("잘못된 입력입니다"); break;
-					case "5": if (EnhanceItem_chk[4]) Enhance(s1.items[4]); else Console.WriteLine("잘못된 입력입니다"); break;
+					case "1":
+						if (!s1.items[0].equipped)
+						{
+							if (EnhanceItem_chk[0]) Enhance(s1.items[0]); else Console.WriteLine("잘못된 입력입니다"); 
+						}
+						else
+						{
+							En_Equip = true;
+							EnhanceOn();
+						}
+						break;
+					case "2":
+						if (!s1.items[1].equipped)
+						{
+							if (EnhanceItem_chk[1]) Enhance(s1.items[1]); else Console.WriteLine("잘못된 입력입니다");
+						}
+						else
+						{
+							En_Equip = true;
+							EnhanceOn();
+						}
+						break;
+					case "3":
+						if (!s1.items[2].equipped)
+						{
+							if (EnhanceItem_chk[2]) Enhance(s1.items[2]); else Console.WriteLine("잘못된 입력입니다");
+						}
+						else
+						{
+							En_Equip = true;
+							EnhanceOn();
+						}
+						break;
+					case "4":
+						if (!s1.items[3].equipped)
+						{
+							if (EnhanceItem_chk[3]) Enhance(s1.items[3]); else Console.WriteLine("잘못된 입력입니다");
+						}
+						else
+						{
+							En_Equip = true;
+							EnhanceOn();
+						}
+						break;
+					case "5":
+						if (!s1.items[4].equipped)
+						{
+							if (EnhanceItem_chk[4]) Enhance(s1.items[4]); else Console.WriteLine("잘못된 입력입니다");
+						}
+						else
+						{
+							En_Equip = true;
+							EnhanceOn();
+						}
+						break;
 					case "0": s1.GameStart(); break;
 					default: Console.WriteLine("잘못된 입력입니다"); break;
 				}
@@ -109,47 +161,50 @@ namespace ConsoleRPG
 			Console.Write(">>");
 			En_Suc = false;
 			En_Fail = false;
+			En_Equip = false;
 			while (true)
 			{
 				string? input = Console.ReadLine();
 				switch (input)
 				{
 					case "1":
-						if (s1.player.Gold > EnhanceCost)
-						{
-							s1.player.Gold -= EnhanceCost;
-							if (E_Chance < enNum)
+					
+							if (s1.player.Gold > EnhanceCost)
 							{
-								if (E_Item.AttackPower > 0)
+								s1.player.Gold -= EnhanceCost;
+								if (E_Chance < enNum)
 								{
-									E_Item.EnhanceNum += 1;
-									E_Item.AttackPower += 1 * E_Item.EnhanceNum + 1;
+									if (E_Item.AttackPower > 0)
+									{
+										E_Item.EnhanceNum += 1;
+										E_Item.AttackPower += 1 * E_Item.EnhanceNum + 1;
 
-									En_Suc = true;
-									Enhance(E_Item);
+										En_Suc = true;
+										Enhance(E_Item);
+									}
+									else
+									{
+										E_Item.EnhanceNum += 1;
+										E_Item.DefensivePower += 1 * E_Item.EnhanceNum + 1;
+										En_Suc = true;
+										Enhance(E_Item);
+									}
 								}
 								else
 								{
-									E_Item.EnhanceNum += 1;
-									E_Item.DefensivePower += 1 * E_Item.EnhanceNum + 1;
-									En_Suc = true;
+									if (E_Item.EnhanceNum >= 3)
+									{
+										E_Item.EnhanceNum -= 1;
+									}
+									En_Fail = true;
 									Enhance(E_Item);
 								}
 							}
 							else
 							{
-								if (E_Item.EnhanceNum >= 3)
-								{
-									E_Item.EnhanceNum -= 1;
-								}
-								En_Fail = true;
-								Enhance(E_Item);
+								Console.WriteLine("소지금이 부족합니다!");
 							}
-						}
-						else
-						{
-							Console.WriteLine("소지금이 부족합니다!");
-						}
+						
 						break;
 					case "0": EnhanceOn(); break;
 
