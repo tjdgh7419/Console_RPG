@@ -9,6 +9,7 @@ namespace ConsoleRPG
 {
 	public class StateStage
 	{
+
 		Start s6 = Start.Instance();
 		public void StateOn()
 		{
@@ -22,7 +23,7 @@ namespace ConsoleRPG
 			Console.WriteLine($"이름 : {s6.player.Name}");
 			Console.WriteLine($"Lv {s6.player.Level}");
 			Console.WriteLine($"Chad ( {s6.player.chad} )");
-			if (s6.AttackUP > 0)
+			if (s6.AttackUP > 0 )
 			{
 				Console.WriteLine($"공격력 : {s6.player.AttackPower} (+{s6.AttackUP})");
 			}
@@ -30,7 +31,7 @@ namespace ConsoleRPG
 			{
 				Console.WriteLine($"공격력 : {s6.player.AttackPower}");
 			}
-			if (s6.DefensiveUP > 0)
+			if (s6.DefensiveUP > 0 )
 			{
 				Console.WriteLine($"방어력 : {s6.player.DefensivePower} (+{s6.DefensiveUP})");
 			}

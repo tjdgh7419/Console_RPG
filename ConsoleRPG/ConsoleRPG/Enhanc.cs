@@ -124,9 +124,6 @@ namespace ConsoleRPG
 								{
 									E_Item.EnhanceNum += 1;
 									E_Item.AttackPower += 1 * E_Item.EnhanceNum + 1;
-									s1.AttackUP += 1 * E_Item.EnhanceNum + 1;
-									s1.player.AttackPower += 1 * E_Item.EnhanceNum + 1;
-
 
 									En_Suc = true;
 									Enhance(E_Item);
@@ -135,8 +132,6 @@ namespace ConsoleRPG
 								{
 									E_Item.EnhanceNum += 1;
 									E_Item.DefensivePower += 1 * E_Item.EnhanceNum + 1;
-									s1.DefensiveUP += 1 * E_Item.EnhanceNum + 1;
-									s1.player.DefensivePower += 1 * E_Item.EnhanceNum + 1;
 									En_Suc = true;
 									Enhance(E_Item);
 								}
