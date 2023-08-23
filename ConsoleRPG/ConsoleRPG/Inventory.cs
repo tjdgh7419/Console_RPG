@@ -9,10 +9,6 @@ namespace ConsoleRPG
 {
 	public class Inventory
 	{
-		bool atk = false;
-		bool def = false;
-		public Item? AtkItem = null;
-		public Item? DefItem = null;
 		Start s5 = Start.Instance();
 		public void InventoryOn()
 		{
@@ -96,53 +92,53 @@ namespace ConsoleRPG
 						{
 							if (Display[0])
 							{   //공격 아이템 장착 후 다른 공격 아이템을 장착 할 때
-								if (!s5.items[0].equipped && s5.items[0].AttackPower > 0 && atk && AtkItem != null)
+								if (!s5.items[0].equipped && s5.items[0].AttackPower > 0 && s5.atk && s5.AtkItem != null)
 								{
-									AtkItem.Sign = "";
-									AtkItem.equipped = false;
+									s5.AtkItem.Sign = "";
+									s5.AtkItem.equipped = false;
 									s5.items[0].Sign = "[E]";
 									s5.items[0].equipped = true;
-									s5.player.AttackPower -= AtkItem.AttackPower;
-									s5.AttackUP -= AtkItem.AttackPower;
+									s5.player.AttackPower -= s5.AtkItem.AttackPower;
+									s5.AttackUP -= s5.AtkItem.AttackPower;
 									s5.player.AttackPower += s5.items[0].AttackPower;
 									s5.AttackUP += s5.items[0].AttackPower;
-									AtkItem = s5.items[0];
+									s5.AtkItem = s5.items[0];
 									InventoryManager();
 								}
 								// 처음 공격 아이템을 장착 했을 때
-								else if (!s5.items[0].equipped && s5.items[0].AttackPower > 0 && !atk && AtkItem == null)
+								else if (!s5.items[0].equipped && s5.items[0].AttackPower > 0 && !s5.atk && s5.AtkItem == null)
 								{
-									atk = true;
+									s5.atk = true;
 									s5.items[0].Sign = "[E]";
 									s5.items[0].equipped = true;
 									s5.AttackUP += s5.items[0].AttackPower;
 									s5.player.AttackPower += s5.items[0].AttackPower;
-									AtkItem = s5.items[0];
+									s5.AtkItem = s5.items[0];
 									InventoryManager();
 								}
 								// 방어 아이템 장착 후 다른 방어 아이템을 장착 할 때
-								else if (!s5.items[0].equipped && s5.items[0].DefensivePower > 0 && def && DefItem != null)
+								else if (!s5.items[0].equipped && s5.items[0].DefensivePower > 0 && s5.def && s5.DefItem != null)
 								{
-									DefItem.Sign = "";
-									DefItem.equipped = false;
+									s5.DefItem.Sign = "";
+									s5.DefItem.equipped = false;
 									s5.items[0].Sign = "[E]";
 									s5.items[0].equipped = true;
-									s5.player.DefensivePower -= DefItem.DefensivePower;
-									s5.DefensiveUP -= DefItem.DefensivePower;
+									s5.player.DefensivePower -= s5.DefItem.DefensivePower;
+									s5.DefensiveUP -= s5.DefItem.DefensivePower;
 									s5.player.DefensivePower += s5.items[0].DefensivePower;
 									s5.DefensiveUP += s5.items[0].DefensivePower;
-									DefItem = s5.items[0];
+									s5.DefItem = s5.items[0];
 									InventoryManager();
 								}
 								// 처음 방어 아이템을 장착 했을 떄
-								else if (!s5.items[0].equipped && s5.items[0].DefensivePower > 0 && !def && DefItem == null)
+								else if (!s5.items[0].equipped && s5.items[0].DefensivePower > 0 && !s5.def && s5.DefItem == null)
 								{
-									def = true;
+									s5.def = true;
 									s5.items[0].Sign = "[E]";
 									s5.items[0].equipped = true;
 									s5.DefensiveUP += s5.items[0].DefensivePower;
 									s5.player.DefensivePower += s5.items[0].DefensivePower;
-									DefItem = s5.items[0];
+									s5.DefItem = s5.items[0];
 									InventoryManager();
 								}
 								// 공격아이템 방어아이템 장착 상태에서 방어 아이템을 뺄 때
@@ -155,13 +151,13 @@ namespace ConsoleRPG
 									s5.items[0].equipped = false;
 									if (s5.items[0].DefensivePower > 0)
 									{
-										DefItem = null;
-										def = false;
+										s5.DefItem = null;
+										s5.def = false;
 									}
 									else
 									{
-										AtkItem = null;
-										atk = false;
+										s5.AtkItem = null;
+										s5.atk = false;
 									}
 									s5.DefensiveUP -= s5.items[0].DefensivePower;
 									s5.AttackUP -= s5.items[0].AttackPower;
@@ -180,51 +176,51 @@ namespace ConsoleRPG
 						{
 							if (Display[1])
 							{
-								if (!s5.items[1].equipped && s5.items[1].AttackPower > 0 && atk && AtkItem != null)
+								if (!s5.items[1].equipped && s5.items[1].AttackPower > 0 && s5.atk && s5.AtkItem != null)
 								{
-									AtkItem.Sign = "";
-									AtkItem.equipped = false;
+									s5.AtkItem.Sign = "";
+									s5.AtkItem.equipped = false;
 									s5.items[1].Sign = "[E]";
 									s5.items[1].equipped = true;
-									s5.player.AttackPower -= AtkItem.AttackPower;
-									s5.AttackUP -= AtkItem.AttackPower;
+									s5.player.AttackPower -= s5.AtkItem.AttackPower;
+									s5.AttackUP -= s5.AtkItem.AttackPower;
 									s5.player.AttackPower += s5.items[1].AttackPower;
 									s5.AttackUP += s5.items[1].AttackPower;
-									AtkItem = s5.items[1];
+									s5.AtkItem = s5.items[1];
 									InventoryManager();
 								}
-								else if (!s5.items[1].equipped && s5.items[1].AttackPower > 0 && !atk && AtkItem == null)
+								else if (!s5.items[1].equipped && s5.items[1].AttackPower > 0 && !s5.atk && s5.AtkItem == null)
 								{
-									atk = true;
+									s5.atk = true;
 									s5.items[1].Sign = "[E]";
 									s5.items[1].equipped = true;
 									s5.AttackUP += s5.items[1].AttackPower;
 									s5.player.AttackPower += s5.items[1].AttackPower;
-									AtkItem = s5.items[1];
+									s5.AtkItem = s5.items[1];
 									InventoryManager();
 								}
-								else if (!s5.items[1].equipped && s5.items[1].DefensivePower > 0 && def && DefItem != null)
+								else if (!s5.items[1].equipped && s5.items[1].DefensivePower > 0 && s5.def && s5.DefItem != null)
 								{
-									DefItem.Sign = "";
-									DefItem.equipped = false;
+									s5.DefItem.Sign = "";
+									s5.DefItem.equipped = false;
 									s5.items[1].Sign = "[E]";
 									s5.items[1].equipped = true;
-									s5.player.DefensivePower -= DefItem.DefensivePower;
-									s5.DefensiveUP -= DefItem.DefensivePower;
+									s5.player.DefensivePower -= s5.DefItem.DefensivePower;
+									s5.DefensiveUP -= s5.DefItem.DefensivePower;
 									s5.player.DefensivePower += s5.items[1].DefensivePower;
 									s5.DefensiveUP += s5.items[1].DefensivePower;
-									DefItem = s5.items[1];
+									s5.DefItem = s5.items[1];
 									InventoryManager();
 								}
 
-								else if (!s5.items[1].equipped && s5.items[1].DefensivePower > 0 && !def && DefItem == null)
+								else if (!s5.items[1].equipped && s5.items[1].DefensivePower > 0 && !s5.def && s5.DefItem == null)
 								{
-									def = true;
+									s5.def = true;
 									s5.items[1].Sign = "[E]";
 									s5.items[1].equipped = true;
 									s5.DefensiveUP += s5.items[1].DefensivePower;
 									s5.player.DefensivePower += s5.items[1].DefensivePower;
-									DefItem = s5.items[1];
+									s5.DefItem = s5.items[1];
 									InventoryManager();
 								}
 								
@@ -234,13 +230,13 @@ namespace ConsoleRPG
 									s5.items[1].equipped = false;
 									if (s5.items[1].DefensivePower > 0)
 									{
-										DefItem = null;
-										def = false;
+										s5.DefItem = null;
+										s5.def = false;
 									}
 									else
 									{
-										AtkItem = null;
-										atk = false;
+										s5.AtkItem = null;
+										s5.atk = false;
 									}
 									s5.DefensiveUP -= s5.items[1].DefensivePower;
 									s5.AttackUP -= s5.items[1].AttackPower;
@@ -259,51 +255,51 @@ namespace ConsoleRPG
 						{
 							if (Display[2])
 							{
-								if (!s5.items[2].equipped && s5.items[2].AttackPower > 0 && atk && AtkItem != null)
+								if (!s5.items[2].equipped && s5.items[2].AttackPower > 0 && s5.atk && s5.AtkItem != null)
 								{
-									AtkItem.Sign = "";
-									AtkItem.equipped = false;
+									s5.AtkItem.Sign = "";
+									s5.AtkItem.equipped = false;
 									s5.items[2].Sign = "[E]";
 									s5.items[2].equipped = true;
-									s5.player.AttackPower -= AtkItem.AttackPower;
-									s5.AttackUP -= AtkItem.AttackPower;
+									s5.player.AttackPower -= s5.AtkItem.AttackPower;
+									s5.AttackUP -= s5.AtkItem.AttackPower;
 									s5.player.AttackPower += s5.items[2].AttackPower;
 									s5.AttackUP += s5.items[2].AttackPower;
-									AtkItem = s5.items[2];
+									s5.AtkItem = s5.items[2];
 									InventoryManager();
 								}
-								else if (!s5.items[2].equipped && s5.items[2].AttackPower > 0 && !atk && AtkItem == null)
+								else if (!s5.items[2].equipped && s5.items[2].AttackPower > 0 && !s5.atk && s5.AtkItem == null)
 								{
-									atk = true;
+									s5.atk = true;
 									s5.items[2].Sign = "[E]";
 									s5.items[2].equipped = true;
 									s5.AttackUP += s5.items[2].AttackPower;
 									s5.player.AttackPower += s5.items[2].AttackPower;
-									AtkItem = s5.items[2];
+									s5.AtkItem = s5.items[2];
 									InventoryManager();
 								}
-								else if (!s5.items[2].equipped && s5.items[2].DefensivePower > 0 && def && DefItem != null)
+								else if (!s5.items[2].equipped && s5.items[2].DefensivePower > 0 && s5.def && s5.DefItem != null)
 								{
-									DefItem.Sign = "";
-									DefItem.equipped = false;
+									s5.DefItem.Sign = "";
+									s5.DefItem.equipped = false;
 									s5.items[2].Sign = "[E]";
 									s5.items[2].equipped = true;
-									s5.player.DefensivePower -= DefItem.DefensivePower;
-									s5.DefensiveUP -= DefItem.DefensivePower;
+									s5.player.DefensivePower -= s5.DefItem.DefensivePower;
+									s5.DefensiveUP -= s5.DefItem.DefensivePower;
 									s5.player.DefensivePower += s5.items[2].DefensivePower;
 									s5.DefensiveUP += s5.items[2].DefensivePower;
-									DefItem = s5.items[2];
+									s5.DefItem = s5.items[2];
 									InventoryManager();
 								}
 
-								else if (!s5.items[2].equipped && s5.items[2].DefensivePower > 0 && !def && DefItem == null)
+								else if (!s5.items[2].equipped && s5.items[2].DefensivePower > 0 && !s5.def && s5.DefItem == null)
 								{
-									def = true;
+									s5.def = true;
 									s5.items[2].Sign = "[E]";
 									s5.items[2].equipped = true;
 									s5.DefensiveUP += s5.items[2].DefensivePower;
 									s5.player.DefensivePower += s5.items[2].DefensivePower;
-									DefItem = s5.items[2];
+									s5.DefItem = s5.items[2];
 									InventoryManager();
 								}
 								
@@ -313,13 +309,13 @@ namespace ConsoleRPG
 									s5.items[2].equipped = false;
 									if (s5.items[2].DefensivePower > 0)
 									{
-										DefItem = null;
-										def = false;
+										s5.DefItem = null;
+										s5.def = false;
 									}
 									else
 									{
-										AtkItem = null;
-										atk = false;
+										s5.AtkItem = null;
+										s5.atk = false;
 									}
 									s5.DefensiveUP -= s5.items[2].DefensivePower;
 									s5.AttackUP -= s5.items[2].AttackPower;
@@ -338,51 +334,51 @@ namespace ConsoleRPG
 						{
 							if (Display[3])
 							{
-								if (!s5.items[3].equipped && s5.items[3].AttackPower > 0 && atk && AtkItem != null)
+								if (!s5.items[3].equipped && s5.items[3].AttackPower > 0 && s5.atk && s5.AtkItem != null)
 								{
-									AtkItem.Sign = "";
-									AtkItem.equipped = false;
+									s5.AtkItem.Sign = "";
+									s5.AtkItem.equipped = false;
 									s5.items[3].Sign = "[E]";
 									s5.items[3].equipped = true;
-									s5.player.AttackPower -= AtkItem.AttackPower;
-									s5.AttackUP -= AtkItem.AttackPower;
+									s5.player.AttackPower -= s5.AtkItem.AttackPower;
+									s5.AttackUP -= s5.AtkItem.AttackPower;
 									s5.player.AttackPower += s5.items[3].AttackPower;
 									s5.AttackUP += s5.items[3].AttackPower;
-									AtkItem = s5.items[3];
+									s5.AtkItem = s5.items[3];
 									InventoryManager();
 								}
-								else if (!s5.items[3].equipped && s5.items[3].AttackPower > 0 && !atk && AtkItem == null)
+								else if (!s5.items[3].equipped && s5.items[3].AttackPower > 0 && !s5.atk && s5.AtkItem == null)
 								{
-									atk = true;
+									s5.atk = true;
 									s5.items[3].Sign = "[E]";
 									s5.items[3].equipped = true;
 									s5.AttackUP += s5.items[3].AttackPower;
 									s5.player.AttackPower += s5.items[3].AttackPower;
-									AtkItem = s5.items[3];
+									s5.AtkItem = s5.items[3];
 									InventoryManager();
 								}
-								else if (!s5.items[3].equipped && s5.items[3].DefensivePower > 0 && def && DefItem != null)
+								else if (!s5.items[3].equipped && s5.items[3].DefensivePower > 0 && s5.def && s5.DefItem != null)
 								{
-									DefItem.Sign = "";
-									DefItem.equipped = false;
+									s5.DefItem.Sign = "";
+									s5.DefItem.equipped = false;
 									s5.items[3].Sign = "[E]";
 									s5.items[3].equipped = true;
-									s5.player.DefensivePower -= DefItem.DefensivePower;
-									s5.DefensiveUP -= DefItem.DefensivePower;
+									s5.player.DefensivePower -= s5.DefItem.DefensivePower;
+									s5.DefensiveUP -= s5.DefItem.DefensivePower;
 									s5.player.DefensivePower += s5.items[3].DefensivePower;
 									s5.DefensiveUP += s5.items[3].DefensivePower;
-									DefItem = s5.items[3];
+									s5.DefItem = s5.items[3];
 									InventoryManager();
 								}
 
-								else if (!s5.items[3].equipped && s5.items[3].DefensivePower > 0 && !def && DefItem == null)
+								else if (!s5.items[3].equipped && s5.items[3].DefensivePower > 0 && !s5.def && s5.DefItem == null)
 								{
-									def = true;
+									s5.def = true;
 									s5.items[3].Sign = "[E]";
 									s5.items[3].equipped = true;
 									s5.DefensiveUP += s5.items[3].DefensivePower;
 									s5.player.DefensivePower += s5.items[3].DefensivePower;
-									DefItem = s5.items[3];
+									s5.DefItem = s5.items[3];
 									InventoryManager();
 								}
 																
@@ -392,13 +388,13 @@ namespace ConsoleRPG
 									s5.items[3].equipped = false;
 									if (s5.items[3].DefensivePower > 0)
 									{
-										DefItem = null;
-										def = false;
+										s5.DefItem = null;
+										s5.def = false;
 									}
 									else
 									{
-										AtkItem = null;
-										atk = false;
+										s5.AtkItem = null;
+										s5.atk = false;
 									}
 									s5.DefensiveUP -= s5.items[3].DefensivePower;
 									s5.AttackUP -= s5.items[3].AttackPower;
@@ -417,51 +413,51 @@ namespace ConsoleRPG
 						{
 							if (Display[4])
 							{
-								if (!s5.items[4].equipped && s5.items[4].AttackPower > 0 && atk && AtkItem != null)
+								if (!s5.items[4].equipped && s5.items[4].AttackPower > 0 && s5.atk && s5.AtkItem != null)
 								{
-									AtkItem.Sign = "";
-									AtkItem.equipped = false;
+									s5.AtkItem.Sign = "";
+									s5.AtkItem.equipped = false;
 									s5.items[4].Sign = "[E]";
 									s5.items[4].equipped = true;
-									s5.player.AttackPower -= AtkItem.AttackPower;
-									s5.AttackUP -= AtkItem.AttackPower;
+									s5.player.AttackPower -= s5.AtkItem.AttackPower;
+									s5.AttackUP -= s5.AtkItem.AttackPower;
 									s5.player.AttackPower += s5.items[4].AttackPower;
 									s5.AttackUP += s5.items[4].AttackPower;
-									AtkItem = s5.items[4];
+									s5.AtkItem = s5.items[4];
 									InventoryManager();
 								}
-								else if (!s5.items[4].equipped && s5.items[4].AttackPower > 0 && !atk && AtkItem == null)
+								else if (!s5.items[4].equipped && s5.items[4].AttackPower > 0 && !s5.atk && s5.AtkItem == null)
 								{
-									atk = true;
+									s5.atk = true;
 									s5.items[4].Sign = "[E]";
 									s5.items[4].equipped = true;
 									s5.AttackUP += s5.items[4].AttackPower;
 									s5.player.AttackPower += s5.items[4].AttackPower;
-									AtkItem = s5.items[4];
+									s5.AtkItem = s5.items[4];
 									InventoryManager();
 								}
-								else if (!s5.items[4].equipped && s5.items[4].DefensivePower > 0 && def && DefItem != null)
+								else if (!s5.items[4].equipped && s5.items[4].DefensivePower > 0 && s5.def && s5.DefItem != null)
 								{
-									DefItem.Sign = "";
-									DefItem.equipped = false;
+									s5.DefItem.Sign = "";
+									s5.DefItem.equipped = false;
 									s5.items[4].Sign = "[E]";
 									s5.items[4].equipped = true;
-									s5.player.DefensivePower -= DefItem.DefensivePower;
-									s5.DefensiveUP -= DefItem.DefensivePower;
+									s5.player.DefensivePower -= s5.DefItem.DefensivePower;
+									s5.DefensiveUP -= s5.DefItem.DefensivePower;
 									s5.player.DefensivePower += s5.items[4].DefensivePower;
 									s5.DefensiveUP += s5.items[4].DefensivePower;
-									DefItem = s5.items[4];
+									s5.DefItem = s5.items[4];
 									InventoryManager();
 								}
 
-								else if (!s5.items[4].equipped && s5.items[4].DefensivePower > 0 && !def && DefItem == null)
+								else if (!s5.items[4].equipped && s5.items[4].DefensivePower > 0 && !s5.def && s5.DefItem == null)
 								{
-									def = true;
+									s5.def = true;
 									s5.items[4].Sign = "[E]";
 									s5.items[4].equipped = true;
 									s5.DefensiveUP += s5.items[4].DefensivePower;
 									s5.player.DefensivePower += s5.items[4].DefensivePower;
-									DefItem = s5.items[4];
+									s5.DefItem = s5.items[4];
 									InventoryManager();
 								}
 														
@@ -471,13 +467,13 @@ namespace ConsoleRPG
 									s5.items[4].equipped = false;
 									if (s5.items[4].DefensivePower > 0)
 									{
-										DefItem = null;
-										def = false;
+										s5.DefItem = null;
+										s5.def = false;
 									}
 									else
 									{
-										AtkItem = null;
-										atk = false;
+										s5.AtkItem = null;
+										s5.atk = false;
 									}
 									s5.DefensiveUP -= s5.items[4].DefensivePower;
 									s5.AttackUP -= s5.items[4].AttackPower;

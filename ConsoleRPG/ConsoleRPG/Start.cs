@@ -19,6 +19,10 @@ namespace ConsoleRPG
 			return _instance;
 		}
 
+		public bool atk = false;
+		public bool def = false;
+		public Item? AtkItem = null;
+		public Item? DefItem = null;
 		public int AttackUP = 0;
 		public int DefensiveUP = 0;
 		public Player player = new State("Sungho", "전사");
