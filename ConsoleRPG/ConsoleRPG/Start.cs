@@ -38,7 +38,7 @@ namespace ConsoleRPG
 
 		public void GameStart()
 		{
-			Enhanc eh = new Enhanc();
+			EnhanceStage eh = new EnhanceStage();
 			Rest rs = new Rest();
 			DungeonStage ds = new DungeonStage();
 			StoreStage st = new StoreStage();

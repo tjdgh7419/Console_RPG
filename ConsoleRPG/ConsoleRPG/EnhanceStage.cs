@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleRPG
 {
-	public class Enhanc : Item
+	public class EnhanceStage : Item
 	{
 		bool En_Suc; //강화 성공
 		bool En_Fail;
