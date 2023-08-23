@@ -144,17 +144,27 @@ namespace ConsoleRPG
 									s5.player.DefensivePower += s5.items[0].DefensivePower;
 									DefItem = s5.items[0];
 									InventoryManager();
-								}			
+								}
+								// 공격아이템 방어아이템 장착 상태에서 방어 아이템을 뺄 때
+								// 공격아이템 방어아이템 장착 상태에서 공격 아이템을 뺄 때
+
+								//
 								else
-								{								
-									DefItem = null;
-									def = false;
-									AtkItem = null;
-									atk = false;
+								{															
 									s5.items[0].Sign = "";
 									s5.items[0].equipped = false;
+									if (s5.items[0].DefensivePower > 0)
+									{
+										DefItem = null;
+										def = false;
+									}
+									else
+									{
+										AtkItem = null;
+										atk = false;
+									}
 									s5.DefensiveUP -= s5.items[0].DefensivePower;
-									s5.AttackUP += s5.items[0].AttackPower;
+									s5.AttackUP -= s5.items[0].AttackPower;
 									s5.player.DefensivePower -= s5.items[0].DefensivePower;
 									s5.player.AttackPower -= s5.items[0].AttackPower;
 									InventoryManager();
@@ -219,13 +229,19 @@ namespace ConsoleRPG
 								}
 								
 								else
-								{
-									DefItem = null;
-									def = false;
-									AtkItem = null;
-									atk = false;
+								{								
 									s5.items[1].Sign = "";
 									s5.items[1].equipped = false;
+									if (s5.items[1].DefensivePower > 0)
+									{
+										DefItem = null;
+										def = false;
+									}
+									else
+									{
+										AtkItem = null;
+										atk = false;
+									}
 									s5.DefensiveUP -= s5.items[1].DefensivePower;
 									s5.AttackUP -= s5.items[1].AttackPower;
 									s5.player.DefensivePower -= s5.items[1].DefensivePower;
@@ -292,13 +308,19 @@ namespace ConsoleRPG
 								}
 								
 								else
-								{
-									DefItem = null;
-									def = false;
-									AtkItem = null;
-									atk = false;
+								{								
 									s5.items[2].Sign = "";
 									s5.items[2].equipped = false;
+									if (s5.items[2].DefensivePower > 0)
+									{
+										DefItem = null;
+										def = false;
+									}
+									else
+									{
+										AtkItem = null;
+										atk = false;
+									}
 									s5.DefensiveUP -= s5.items[2].DefensivePower;
 									s5.AttackUP -= s5.items[2].AttackPower;
 									s5.player.DefensivePower -= s5.items[2].DefensivePower;
@@ -365,13 +387,19 @@ namespace ConsoleRPG
 								}
 																
 								else
-								{
-									DefItem = null;
-									def = false;
-									AtkItem = null;
-									atk = false;
+								{							
 									s5.items[3].Sign = "";
 									s5.items[3].equipped = false;
+									if (s5.items[3].DefensivePower > 0)
+									{
+										DefItem = null;
+										def = false;
+									}
+									else
+									{
+										AtkItem = null;
+										atk = false;
+									}
 									s5.DefensiveUP -= s5.items[3].DefensivePower;
 									s5.AttackUP -= s5.items[3].AttackPower;
 									s5.player.DefensivePower -= s5.items[3].DefensivePower;
@@ -438,13 +466,19 @@ namespace ConsoleRPG
 								}
 														
 								else
-								{
-									DefItem = null;
-									def = false;
-									AtkItem = null;
-									atk = false;
+								{							
 									s5.items[4].Sign = "";
 									s5.items[4].equipped = false;
+									if (s5.items[4].DefensivePower > 0)
+									{
+										DefItem = null;
+										def = false;
+									}
+									else
+									{
+										AtkItem = null;
+										atk = false;
+									}
 									s5.DefensiveUP -= s5.items[4].DefensivePower;
 									s5.AttackUP -= s5.items[4].AttackPower;
 									s5.player.DefensivePower -= s5.items[4].DefensivePower;
